@@ -248,7 +248,30 @@ function initThreeScene(asteroids, totalAvailable = null) {
     let globalSizeMultiplier = 1;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    
+    // Create star map background
+    const textureLoader = new THREE.TextureLoader();
+    
+    // Try to load star map, fallback to black background if not found
+    const starMapPath = 'starmap.jpg'; // You can replace this with your star map file
+    textureLoader.load(
+      starMapPath,
+      function(texture) {
+        // Create a large sphere to serve as the star background
+        const starGeometry = new THREE.SphereGeometry(5000, 32, 32);
+        const starMaterial = new THREE.MeshBasicMaterial({
+          map: texture,
+          side: THREE.BackSide // Render inside the sphere
+        });
+        const starSphere = new THREE.Mesh(starGeometry, starMaterial);
+        scene.add(starSphere);
+      },
+      undefined,
+      function(error) {
+        console.log('Star map not found, using black background:', error);
+        scene.background = new THREE.Color(0x000000);
+      }
+    );
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 10000);
     camera.position.set(0, 15, 25);
@@ -653,10 +676,8 @@ function initThreeScene(asteroids, totalAvailable = null) {
       const infoPanel = document.getElementById('infoPanel');
       infoPanel.innerHTML = `
         <div style="display:flex; flex-direction:column; align-items:center; width:100%;">
-          <div id="infoPanelPageContainer" style="display:flex; align-items:stretch; justify-content:center; width:100%;">
-            <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
-              <button id="infoPanelLeft">&#8592;</button>
-            </div>
+          <div style="display:flex; align-items:center; justify-content:center; width:100%; gap:8px;">
+            <button id="infoPanelLeft">&lt;</button>
             <div id="infoPanelScroller">
               ${groups.map((g, i) => `
                 <div class="info-group-wrapper" style="display:flex; align-items:center; justify-content:center; min-width:340px; max-width:340px; height:100%;">
@@ -667,9 +688,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
                 </div>
               `).join('')}
             </div>
-            <div style="display:flex; flex-direction:column; justify-content:center; align-items:center;">
-              <button id="infoPanelRight">&#8594;</button>
-            </div>
+            <button id="infoPanelRight">&gt;</button>
           </div>
           <div id="infoPanelDots" style="display:flex; justify-content:center; align-items:center; margin-top:8px; gap:8px;">
             ${groups.map((_, i) => `<span class="infoPanelDot" data-dot="${i}"></span>`).join('')}
@@ -903,17 +922,17 @@ function initThreeScene(asteroids, totalAvailable = null) {
     const toggleControlsBtn = document.getElementById('toggleControls');
     const controlsDiv = document.getElementById('controls');
     if (toggleControlsBtn && controlsDiv) {
-      toggleControlsBtn.textContent = '−';
+      toggleControlsBtn.textContent = '<';
       toggleControlsBtn.title = 'Minimize Controls';
       toggleControlsBtn.onclick = function() {
         const isMinimized = controlsDiv.classList.contains('minimized');
         if (isMinimized) {
           controlsDiv.classList.remove('minimized');
-          this.textContent = '−';
+          this.textContent = '<';
           this.title = 'Minimize Controls';
         } else {
           controlsDiv.classList.add('minimized');
-          this.textContent = '+';
+          this.textContent = '>';
           this.title = 'Expand Controls';
         }
       };
