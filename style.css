@@ -1,0 +1,525 @@
+.info-group-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 340px;
+  max-width: 340px;
+  height: 100%;
+}
+/* Ensure only .css2d-label-clickable children of CSS2DRenderer are interactive */
+.css2d-label-root {
+  pointer-events: none;
+}
+.css2d-label-root > .css2d-label-clickable {
+  pointer-events: auto;
+}
+/* InfoPanel horizontal group scrolling */
+.info-group {
+  min-width: 220px;
+  max-width: 420px;
+  width: 100%;
+  flex: 1 1 100%;
+  margin: 0 auto;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 0 2px 0;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.08em;
+  line-height: 1.32;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+/* InfoPanel horizontal group scrolling and navigation */
+#infoPanelPageContainer {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 120px;
+  overflow: visible;
+}
+#infoPanelScroller {
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+  width: 340px;
+  min-height: 120px;
+  scroll-behavior: smooth;
+  transition: scroll-left 0.3s;
+}
+.info-group {
+  min-width: 340px;
+  max-width: 340px;
+  flex: 0 0 340px;
+  margin: 0 auto;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 12px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.08em;
+  line-height: 1.32;
+  word-break: break-word;
+  overflow: hidden;
+  text-align: center;
+  height: 100%;
+}
+.info-group > div {
+  width: 100%;
+  text-align: center;
+}
+.info-group > div:first-child {
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.infoPanelDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  border: 1px solid #222;
+  opacity: 0.4;
+}
+.infoPanelDot.active {
+  background: #fff;
+  border-color: #fff;
+  opacity: 1;
+}
+#infoPanelLeft, #infoPanelRight {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 8px 0 8px;
+  padding: 0 8px;
+  user-select: none;
+  transition: color 0.2s;
+  align-self: center;
+}
+#infoPanelLeft:hover, #infoPanelRight:hover {
+  color: #fff;
+  opacity: 0.7;
+}
+#infoPanelLeft, #infoPanelRight {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 8px;
+  padding: 0 8px;
+  user-select: none;
+  transition: color 0.2s;
+}
+#infoPanelLeft:hover, #infoPanelRight:hover {
+  color: #ffcc00;
+}
+/* Removed invalid orphaned CSS property */
+/* Arrow icon for toggle button */
+.collapsed-arrow {
+  font-size: 22px;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+}
+/* Custom search icon styling */
+.search-icon {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 8px;
+  position: relative;
+}
+.search-icon::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="%23aaa" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="%23aaa" stroke-width="2" stroke-linecap="round"/></svg>') center center no-repeat;
+  background-size: 30px 30px;
+}
+.search-icon:hover::before {
+  background: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="7" stroke="%23fff" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="%23fff" stroke-width="2" stroke-linecap="round"/></svg>') center center no-repeat;
+  background-size: 30px 30px;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #ddd;
+  background: #050814;
+  overflow: hidden; /* Prevent scrollbars */
+}
+
+/* Canvas now fills the entire viewport as main layer */
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255,255,255,0.02) 0%,
+    rgba(0,0,0,1) 60%
+  );
+}
+
+/* UI Overlay container */
+#ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+}
+
+#ui-overlay > * {
+  pointer-events: none;
+}
+#header, #controls, #infoPanel, #searchResults {
+  pointer-events: auto;
+}
+
+/* Ensure search results don't interfere with OrbitControls */
+#searchResults {
+  position: absolute;
+  right: 0;
+  background: #222;
+  color: #fff;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 2px 8px #0008;
+  z-index: 100;
+  display: none;
+  max-height: 220px;
+  overflow-y: auto;
+  pointer-events: auto;
+}
+
+.search-result-item {
+  pointer-events: auto;
+  user-select: none;
+}
+
+.search-result-item:hover {
+  background: #444;
+}
+
+/* Header */
+#header {
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#header h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 600;
+}
+
+/* Controls panel */
+#controls {
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2vw 2vw 2vw 2vw;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 480px;
+  min-width: 260px;
+  width: 28vw;
+  color: #fff;
+  transition: width 0.3s cubic-bezier(.4,2,.6,1), background 0.3s;
+  position: fixed;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  z-index: 20;
+  overflow: visible;
+}
+
+/* Controls header with legend and toggle button */
+.controls-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+/* Toggle controls button */
+#toggleControls {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 32px;
+  min-height: 32px;
+  position: absolute;
+  left: 0;
+  top: 12px;
+  z-index: 2;
+  box-shadow: 1px 0 6px #0006;
+  transition: left 0.3s;
+}
+
+#controls:not(.minimized) #toggleControls {
+  left: auto;
+  right: 12px;
+  top: 12px;
+}
+
+#controls.minimized #toggleControls {
+  left: 0;
+  right: auto;
+  top: 12px;
+}
+
+#toggleControls:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Controls content that can be minimized */
+#controlsContent {
+  transition: opacity 0.3s, margin-left 0.3s, max-width 0.3s;
+  overflow: hidden;
+  white-space: normal;
+  max-width: 1000px;
+}
+
+/* Minimized state */
+#controls.minimized #controlsContent {
+  max-width: 0;
+  opacity: 0;
+  margin-left: -32px;
+  pointer-events: none;
+  display: none !important;
+}
+
+#controls.minimized .controls-header {
+  margin-bottom: 0;
+  justify-content: flex-start;
+}
+
+#controls.minimized {
+  width: 56px !important;
+  min-width: 56px !important;
+  overflow: visible;
+  padding: 0;
+}
+
+/* Hide legend and certain controls when minimized */
+#controls.minimized .legend {
+  display: none !important;
+}
+
+#controls.minimized #simulationControls {
+  display: none !important;
+}
+
+#controls.minimized #countControls {
+  display: none !important;
+}
+
+#controls.minimized #sizeControls {
+  display: none !important;
+}
+
+#controls.minimized #infoPanel {
+  display: none !important;
+}
+
+/* Combined Information Panel (now inside simulation controls) */
+#infoPanel {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 13px;
+  pointer-events: auto;
+}
+
+/* Fullscreen toggle for hiding UI */
+#canvas.ui-hidden + #ui-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+
+/* By default, all CSS2DRenderer labels should not block pointer events */
+.label {
+  font-size: 12px;
+  padding: 2px 6px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 4px;
+  color: #fff;
+  pointer-events: auto; /* Make all labels clickable by default */
+  transition: background 160ms ease, color 160ms ease;
+  cursor: pointer; /* Show pointer cursor */
+}
+
+.label:hover {
+  background: rgba(200,200,200,0.95);
+  color: #111;
+}
+
+.legend {
+  margin-top: 8px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.legend .box {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  margin-right: 6px;
+  border-radius: 2px;
+}
+
+/* Subtle star field (CSS only, inexpensive) */
+#canvas::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(white 0.8px, transparent 0.9px),
+    radial-gradient(white 0.6px, transparent 0.7px),
+    radial-gradient(white 0.5px, transparent 0.6px);
+  background-size: 800px 800px, 400px 400px, 1200px 1200px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* Simulation Controls */
+#simulationControls {
+  margin-top: 14px;
+  padding: 10px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 13px;
+}
+
+#impactReport {
+  margin-top: 8px;
+  color: #ddd;
+  font-size: 13px;
+}
+
+#deltaV {
+  width: 100%;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+#yearsOut {
+  width: 64px;
+}
+
+#mitigationResult {
+  margin-top: 8px;
+  font-weight: 600;
+  color: #ccc;
+}
+
+/* Input and button styling for overlay */
+input, button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+input:focus, button:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+/* Scrollbar styling for webkit browsers */
+#infoPanel::-webkit-scrollbar {
+  width: 6px;
+}
+
+#infoPanel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+#infoPanel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+#infoPanel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+#sizeControls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+#sizeControls label {
+  margin-bottom: 0;
+}
+#sizeRatio {
+  flex: 1;
+  margin: 0 8px 0 0;
+}
+#sizeRatioValue {
+  min-width: 32px;
+  text-align: center;
+  margin: 0;
+}

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>OrbitalShield</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Import map for Three.js -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
+      "OrbitControls": "https://unpkg.com/three@0.150.1/examples/jsm/controls/OrbitControls.js",
+      "CSS2DRenderer": "https://unpkg.com/three@0.150.1/examples/jsm/renderers/CSS2DRenderer.js"
+    }
+  }
+  </script>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Three.js canvas - now the main background layer -->
+  <div id="canvas"></div>
+  
+  <!-- UI Overlay -->
+  <div id="ui-overlay">
+    <div id="header" style="position: relative;">
+      <h1>Impactor-2025</h1>
+      <div style="position: absolute; top: 10px; right: 20px;">
+  <span id="searchIcon" class="search-icon"></span>
+  <input id="asteroidSearch" type="text" placeholder="Search asteroid..." style="padding: 4px 10px; border-radius: 4px; border: 1px solid #888; min-width: 180px; display:none;" autocomplete="off" />
+  <div id="searchResults" style="position: absolute; right: 0; background: #222; color: #fff; border-radius: 0 0 6px 6px; box-shadow: 0 2px 8px #0008; z-index: 100; display: none; max-height: 220px; overflow-y: auto;"></div>
+      </div>
+    </div>
+
+    <div id="controls">
+      <div class="controls-header">
+        <div class="legend">
+          <span class="box" style="background:#ff4444"></span> Hazardous &nbsp;&nbsp;
+          <span class="box" style="background:#44ff88"></span> Safe
+        </div>
+        <button id="toggleControls" title="Minimize/Expand Controls">−</button>
+      </div>
+
+      <div id="controlsContent">
+        <!-- Asteroid Count Control -->
+        <div id="countControls" style="margin-top: 12px;">
+          <label for="asteroidCount">Number of Asteroids to Plot</label><br>
+          <input type="number" id="asteroidCount" min="1" max="200" step="1" value="20" style="width: 80px;" />
+        </div>
+
+        <!-- Asteroid Size Control -->
+        <div id="sizeControls" style="margin-top: 12px; flex-direction: column; align-items: stretch;">
+          <label for="sizeRatio">Asteroid Size Multiplier</label>
+          <div class="slider-row">
+            <input type="range" id="sizeRatio" min="1" max="25" step="1" value="1" />
+            <span id="sizeRatioValue">1x</span>
+          </div>
+        </div>
+
+        <!-- Impactor-2025 simulation controls -->
+        <div id="simulationControls">
+          <div style="display:flex; gap:12px; align-items:center;">
+            <div style="min-width:260px">
+              <label for="deltaV">ΔV (mm/s)</label><br>
+              <input type="range" id="deltaV" min="0" max="100" step="0.5" value="0" />
+              <div class="slider-row">
+                <span id="deltaVValue">0.0 mm/s</span>
+                <div>
+                  <label for="yearsOut">Years to Impact</label><br>
+                  <input type="number" id="yearsOut" min="1" max="30" step="1" value="5" />
+                </div>
+              </div>
+              <div id="mitigationResult">Resulting Miss Distance: N/A</div>
+            </div>
+          </div>
+          
+          <!-- Combined Information Panel - now inside simulation controls -->
+          <div id="infoPanel">
+            Select an asteroid (click name) to populate report. Open browser console to see fetched data.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- External JS -->
+  <script type="module" src="main.js"></script>
+
+  <!-- Asteroid search bar logic is now handled in main.js after asteroidCache is defined. -->
+</body>
+</html>
