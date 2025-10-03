@@ -517,6 +517,80 @@ button:hover {
 #sizeRatio {
   flex: 1;
   margin: 0 8px 0 0;
+  background: transparent !important;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+}
+
+/* Webkit browsers */
+#sizeRatio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #aaa;
+  border: 2px solid #888;
+  box-shadow: 0 1px 4px #0002;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+#sizeRatio:focus::-webkit-slider-thumb {
+  outline: 2px solid #888;
+}
+#sizeRatio::-webkit-slider-runnable-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+/* Firefox */
+#sizeRatio::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #aaa;
+  border: 2px solid #888;
+  box-shadow: 0 1px 4px #0002;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+#sizeRatio:focus::-moz-range-thumb {
+  outline: 2px solid #888;
+}
+#sizeRatio::-moz-range-track {
+  height: 4px;
+  background: transparent;
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+/* IE/Edge */
+#sizeRatio::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #aaa;
+  border: 2px solid #888;
+  box-shadow: 0 1px 4px #0002;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+#sizeRatio:focus::-ms-thumb {
+  outline: 2px solid #888;
+}
+#sizeRatio::-ms-fill-lower,
+#sizeRatio::-ms-fill-upper {
+  background: transparent;
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+/* Remove default focus outline for all browsers */
+#sizeRatio:focus {
+  outline: none;
 }
 #sizeRatioValue {
   min-width: 32px;
