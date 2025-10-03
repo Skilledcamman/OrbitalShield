@@ -386,9 +386,34 @@ function initThreeScene(asteroids, totalAvailable = null) {
 
     const earthRadiusUnits = 3;
     const earthGeo = new THREE.SphereGeometry(earthRadiusUnits, 32, 32);
-    const earthMat = new THREE.MeshStandardMaterial({ color: 0x2266dd, roughness: 0.95, metalness: 0.05 });
-    const earth = new THREE.Mesh(earthGeo, earthMat);
-    scene.add(earth);
+    
+    // Create Earth with texture map
+    let earthMat;
+    textureLoader.load(
+      'earth.jpg', // You can replace this with your Earth texture file
+      function(earthTexture) {
+        // Successfully loaded Earth texture
+        earthMat = new THREE.MeshStandardMaterial({ 
+          map: earthTexture,
+          roughness: 0.95, 
+          metalness: 0.05 
+        });
+        const earth = new THREE.Mesh(earthGeo, earthMat);
+        scene.add(earth);
+      },
+      undefined,
+      function(error) {
+        // Fallback to blue color if Earth texture not found
+        console.log('Earth texture not found, using blue color:', error);
+        earthMat = new THREE.MeshStandardMaterial({ 
+          color: 0x2266dd, 
+          roughness: 0.95, 
+          metalness: 0.05 
+        });
+        const earth = new THREE.Mesh(earthGeo, earthMat);
+        scene.add(earth);
+      }
+    );
 
     const KM_PER_EARTH_RADIUS = 6371;
     const missDistances = asteroids.map(a => {
