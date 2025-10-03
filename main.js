@@ -4,6 +4,120 @@ import { CSS2DRenderer, CSS2DObject } from 'CSS2DRenderer';
 
 const API_BASE = 'https://api.nasa.gov/neo/rest/v1/neo/browse';
 
+// Loading progress functions
+function updateLoadingProgress(percent, message) {
+  const progressBar = document.getElementById('progressBar');
+  const loadingProgress = document.getElementById('loadingProgress');
+  const loadingDetails = document.getElementById('loadingDetails');
+  
+  if (progressBar) progressBar.style.width = percent + '%';
+  if (loadingProgress) loadingProgress.textContent = `Loading... ${percent}%`;
+  if (loadingDetails) loadingDetails.textContent = message;
+}
+
+function checkLoadingComplete(loadingComplete) {
+  if (loadingComplete.starMap && loadingComplete.earthTexture) {
+    updateLoadingProgress(90, "Finalizing scene...");
+    setTimeout(() => {
+      updateLoadingProgress(100, "Complete!");
+      setTimeout(() => {
+        // Hide loading screen
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+          loadingScreen.style.opacity = '0';
+          loadingScreen.style.transition = 'opacity 0.5s ease';
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            // Show enter screen
+            showEnterScreen();
+          }, 500);
+        }
+      }, 300);
+    }, 200);
+  }
+}
+
+function showEnterScreen() {
+  const enterScreen = document.getElementById('enterScreen');
+  if (enterScreen) {
+    enterScreen.style.display = 'flex';
+    enterScreen.style.opacity = '0';
+    setTimeout(() => {
+      enterScreen.style.transition = 'opacity 0.8s ease';
+      enterScreen.style.opacity = '1';
+    }, 100);
+    
+    // Set up scroll listener to enter the main application
+    setupScrollToEnter();
+  }
+}
+
+function setupScrollToEnter() {
+  let scrollTimeout;
+  
+  function handleScroll() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      enterMainApplication();
+    }, 100);
+  }
+  
+  function handleKeyDown(event) {
+    // Enter on space, enter, or arrow keys
+    if (event.code === 'Space' || event.code === 'Enter' || 
+        event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+      event.preventDefault();
+      enterMainApplication();
+    }
+  }
+  
+  // Add scroll and keyboard listeners
+  window.addEventListener('wheel', handleScroll, { passive: true });
+  window.addEventListener('touchmove', handleScroll, { passive: true });
+  window.addEventListener('keydown', handleKeyDown);
+  
+  // Click to enter as well
+  const enterScreen = document.getElementById('enterScreen');
+  if (enterScreen) {
+    enterScreen.addEventListener('click', enterMainApplication);
+  }
+  
+  function enterMainApplication() {
+    // Remove listeners
+    window.removeEventListener('wheel', handleScroll);
+    window.removeEventListener('touchmove', handleScroll);
+    window.removeEventListener('keydown', handleKeyDown);
+    
+    // Hide enter screen and show main UI
+    const enterScreen = document.getElementById('enterScreen');
+    const uiOverlay = document.getElementById('ui-overlay');
+    const canvas = document.getElementById('canvas');
+    
+    if (enterScreen) {
+      enterScreen.style.transition = 'opacity 0.8s ease';
+      enterScreen.style.opacity = '0';
+      setTimeout(() => {
+        enterScreen.style.display = 'none';
+      }, 800);
+    }
+    
+    if (canvas) {
+      canvas.style.transition = 'opacity 0.8s ease';
+      canvas.style.opacity = '1';
+    }
+    
+    if (uiOverlay) {
+      uiOverlay.style.transition = 'opacity 0.8s ease';
+      uiOverlay.style.opacity = '1';
+    }
+    
+    // Ensure OrbitControls are enabled
+    if (window.orbitControls) {
+      window.orbitControls.enabled = true;
+    }
+  }
+}
+
 // Cache for asteroid data to avoid re-fetching
 let asteroidCache = {
   data: [],
@@ -241,6 +355,9 @@ async function refreshAsteroids() {
 
 function initThreeScene(asteroids, totalAvailable = null) {
   try {
+    // Update loading progress
+    updateLoadingProgress(20, "Setting up 3D scene...");
+    
     const container = document.getElementById('canvas');
     container.innerHTML = '';
     const width = window.innerWidth;
@@ -249,8 +366,13 @@ function initThreeScene(asteroids, totalAvailable = null) {
 
     const scene = new THREE.Scene();
     
+    // Loading progress tracking
+    let loadingComplete = { starMap: false, earthTexture: false };
+    
     // Create star map background
     const textureLoader = new THREE.TextureLoader();
+    
+    updateLoadingProgress(30, "Loading star map...");
     
     // Try to load star map, fallback to black background if not found
     const starMapPath = 'starmap.jpg'; // You can replace this with your star map file
@@ -265,11 +387,20 @@ function initThreeScene(asteroids, totalAvailable = null) {
         });
         const starSphere = new THREE.Mesh(starGeometry, starMaterial);
         scene.add(starSphere);
+        loadingComplete.starMap = true;
+        updateLoadingProgress(50, "Star map loaded successfully");
+        checkLoadingComplete(loadingComplete);
       },
-      undefined,
+      function(progress) {
+        const percent = Math.round((progress.loaded / progress.total) * 30) + 30;
+        updateLoadingProgress(percent, "Loading star map...");
+      },
       function(error) {
         console.log('Star map not found, using black background:', error);
         scene.background = new THREE.Color(0x000000);
+        loadingComplete.starMap = true;
+        updateLoadingProgress(50, "Using default background");
+        checkLoadingComplete(loadingComplete);
       }
     );
 
@@ -389,6 +520,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
     
     // Create Earth with texture map
     let earthMat;
+    updateLoadingProgress(60, "Loading Earth texture...");
     textureLoader.load(
       'earth.jpg', // You can replace this with your Earth texture file
       function(earthTexture) {
@@ -400,8 +532,14 @@ function initThreeScene(asteroids, totalAvailable = null) {
         });
         const earth = new THREE.Mesh(earthGeo, earthMat);
         scene.add(earth);
+        loadingComplete.earthTexture = true;
+        updateLoadingProgress(80, "Earth texture loaded successfully");
+        checkLoadingComplete(loadingComplete);
       },
-      undefined,
+      function(progress) {
+        const percent = Math.round((progress.loaded / progress.total) * 20) + 60;
+        updateLoadingProgress(percent, "Loading Earth texture...");
+      },
       function(error) {
         // Fallback to blue color if Earth texture not found
         console.log('Earth texture not found, using blue color:', error);
@@ -412,6 +550,9 @@ function initThreeScene(asteroids, totalAvailable = null) {
         });
         const earth = new THREE.Mesh(earthGeo, earthMat);
         scene.add(earth);
+        loadingComplete.earthTexture = true;
+        updateLoadingProgress(80, "Using default Earth appearance");
+        checkLoadingComplete(loadingComplete);
       }
     );
 
@@ -523,7 +664,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
           if (controlsDiv && controlsDiv.classList.contains('minimized')) {
             controlsDiv.classList.remove('minimized');
             if (toggleControlsBtn) {
-              toggleControlsBtn.textContent = '−';
+              toggleControlsBtn.textContent = '<';
               toggleControlsBtn.title = 'Minimize Controls';
             }
           }
@@ -969,7 +1110,13 @@ function initThreeScene(asteroids, totalAvailable = null) {
 }
 
 window.addEventListener('load', () => {
-  autoFetchAsteroids();
+  // Initialize loading screen
+  updateLoadingProgress(0, "Starting OrbitalShield...");
+  
+  setTimeout(() => {
+    updateLoadingProgress(10, "Fetching asteroid data...");
+    autoFetchAsteroids();
+  }, 100);
 
   const searchInput = document.getElementById('asteroidSearch');
   const searchResults = document.getElementById('searchResults');
