@@ -748,7 +748,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
           if (controlsDiv && controlsDiv.classList.contains('minimized')) {
             controlsDiv.classList.remove('minimized');
             if (toggleControlsBtn) {
-              toggleControlsBtn.textContent = '−';
+              toggleControlsBtn.textContent = '<';
               toggleControlsBtn.title = 'Minimize Controls';
             }
           }
@@ -1260,7 +1260,7 @@ window.addEventListener('load', () => {
             // uiOverlay.style.pointerEvents = 'auto';
           }
           if (toggleControlsBtn) {
-            toggleControlsBtn.textContent = '−';
+            toggleControlsBtn.textContent = '<';
             toggleControlsBtn.title = 'Minimize Controls';
           }
           
