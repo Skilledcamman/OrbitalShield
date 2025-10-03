@@ -172,6 +172,16 @@ function calculateOrbitalPosition(orbitalData, currentEpoch) {
   return { x, y, z, distance: r };
 }
 
+function getAsteroidLabelText(asteroid) {
+  // Use designation + name_limited if both are available
+  if (asteroid.designation && asteroid.name_limited) {
+    return `${asteroid.designation} ${asteroid.name_limited}`;
+  }
+  
+  // Fallback to name in all other cases
+  return asteroid.name || 'Unknown';
+}
+
 async function autoFetchAsteroids() {
   // TODO: Replace hardcoded API key with secure handling (e.g., environment variable or user input)
   const key = 'vtR582RLfHiFz1EPNfMLdXr3auzMoaSMlj47tSTb';
@@ -418,6 +428,8 @@ function initThreeScene(asteroids, totalAvailable = null) {
           radiusUnits,
           baseRadiusUnits,
           name: a.name,
+          designation: a.designation,
+          name_limited: a.name_limited,
           id: a.id,
           avgDiamKm,
           hazardous: !!a.is_potentially_hazardous_asteroid,
@@ -450,7 +462,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
 
         const labelDiv = document.createElement('div');
         labelDiv.className = 'label';
-        labelDiv.textContent = a.name || 'Unknown';
+        labelDiv.textContent = getAsteroidLabelText(a);
         labelDiv.style.pointerEvents = 'auto';
         labelDiv.style.whiteSpace = 'nowrap';
         labelDiv.style.fontSize = '12px';
@@ -481,6 +493,8 @@ function initThreeScene(asteroids, totalAvailable = null) {
         mesh.userData = {
           id: a.id,
           name: a.name,
+          designation: a.designation,
+          name_limited: a.name_limited,
           avgDiamKm,
           baseRadiusUnits,
           hazardous: !!a.is_potentially_hazardous_asteroid,
@@ -532,7 +546,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
       list.forEach(it => {
         const d = document.createElement('div');
         d.className = 'label';
-        d.textContent = it.name || 'Unknown';
+        d.textContent = getAsteroidLabelText(it);
         d.style.pointerEvents = 'auto';
         d.style.whiteSpace = 'nowrap';
         d.style.fontSize = '11px';
@@ -741,7 +755,7 @@ function initThreeScene(asteroids, totalAvailable = null) {
         }
         if (meta) {
           tooltip.innerHTML = `
-            <strong style="display:block;margin-bottom:4px">${meta.name || 'Unknown'}</strong>
+            <strong style="display:block;margin-bottom:4px">${getAsteroidLabelText(meta)}</strong>
             <div style="color:#aaa; font-size:12px; margin-bottom:6px">ID: ${meta.id ?? 'Unknown'}</div>
             <div style="margin-bottom:4px">Torino: <span style="color:#ffcc00">${meta.torinoScore ?? calculateTorinoProxy(meta.energyMt ?? 0)} / 10</span></div>
             ${meta.avgDiamKm.toFixed(1)} km &nbsp; • &nbsp; ${meta.hazardous ? '<span style="color:#ff8888">Hazard</span>' : 'Safe'}<br>
@@ -955,7 +969,7 @@ window.addEventListener('load', () => {
     }
     searchResults.innerHTML = matches.map(a => `
       <div class="search-result-item" data-id="${a.id}" style="padding:6px 12px; cursor:pointer; border-bottom:1px solid #333;">
-        ${a.name || 'Unknown'} (${a.id})
+        ${getAsteroidLabelText(a)} (${a.id})
       </div>
     `).join('');
     searchResults.style.display = 'block';
@@ -972,6 +986,8 @@ window.addEventListener('load', () => {
       }
       const matches = asteroids.filter(a =>
         (a.name && a.name.toLowerCase().includes(val)) ||
+        (a.designation && a.designation.toLowerCase().includes(val)) ||
+        (a.name_limited && a.name_limited.toLowerCase().includes(val)) ||
         (a.id && String(a.id).toLowerCase().includes(val))
       );
       showSearchResults(matches);
@@ -1016,6 +1032,8 @@ window.addEventListener('load', () => {
           const meta = {
             id: found.id,
             name: found.name,
+            designation: found.designation,
+            name_limited: found.name_limited,
             avgDiamKm,
             baseRadiusUnits: undefined,
             hazardous: !!found.is_potentially_hazardous_asteroid,
