@@ -332,9 +332,39 @@ body {
 
 /* Enhanced mitigation controls */
 #mitigationMethod {
-  padding: 4px 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255,255,255,0.1) !important;
+  border: 1px solid #555;
   border-radius: 4px;
+  color: #fff !important;
+  padding: 6px 30px 6px 8px;
   font-size: 12px;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23fff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+#mitigationMethod option {
+  background: #222 !important;
+  color: #fff !important;
+  padding: 6px 8px;
+  border: none;
+}
+
+#mitigationMethod option:hover,
+#mitigationMethod option:focus {
+  background: #444 !important;
+  color: #ffcc00 !important;
+}
+
+#mitigationMethod:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.3);
 }
 
 #mitigationEfficiency {
