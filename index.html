@@ -114,6 +114,23 @@
               <input type="number" id="impactLng" placeholder="Longitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
               <button id="simulateImpact" style="padding: 4px 8px; background: rgba(255, 68, 68, 0.2); border: 1px solid #ff4444; color: #ff4444; border-radius: 3px;">Simulate</button>
             </div>
+            
+            <!-- Popular Places -->
+            <div style="margin-bottom: 8px;">
+              <label style="color: #ccc; font-size: 11px; margin-bottom: 4px; display: block;">Popular Impact Locations:</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;">
+                <button class="location-preset" data-lat="40.7128" data-lng="-74.0060" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 99, 71, 0.2); border: 1px solid #ff6347; color: #ff6347; border-radius: 3px; cursor: pointer;">🏙️ NYC</button>
+                <button class="location-preset" data-lat="34.0522" data-lng="-118.2437" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700; border-radius: 3px; cursor: pointer;">🌴 LA</button>
+                <button class="location-preset" data-lat="35.6762" data-lng="139.6503" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 20, 147, 0.2); border: 1px solid #ff1493; color: #ff1493; border-radius: 3px; cursor: pointer;">🏯 Tokyo</button>
+                <button class="location-preset" data-lat="51.5074" data-lng="-0.1278" style="font-size: 10px; padding: 3px 5px; background: rgba(70, 130, 180, 0.2); border: 1px solid #4682b4; color: #4682b4; border-radius: 3px; cursor: pointer;">🏰 London</button>
+                <button class="location-preset" data-lat="48.8566" data-lng="2.3522" style="font-size: 10px; padding: 3px 5px; background: rgba(138, 43, 226, 0.2); border: 1px solid #8a2be2; color: #8a2be2; border-radius: 3px; cursor: pointer;">🗼 Paris</button>
+                <button class="location-preset" data-lat="-33.8688" data-lng="151.2093" style="font-size: 10px; padding: 3px 5px; background: rgba(0, 191, 255, 0.2); border: 1px solid #00bfff; color: #00bfff; border-radius: 3px; cursor: pointer;">🏖️ Sydney</button>
+                <button class="location-preset" data-lat="55.7558" data-lng="37.6173" style="font-size: 10px; padding: 3px 5px; background: rgba(220, 20, 60, 0.2); border: 1px solid #dc143c; color: #dc143c; border-radius: 3px; cursor: pointer;">🏛️ Moscow</button>
+                <button class="location-preset" data-lat="39.9042" data-lng="116.4074" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 140, 0, 0.2); border: 1px solid #ff8c00; color: #ff8c00; border-radius: 3px; cursor: pointer;">🏮 Beijing</button>
+                <button class="location-preset" data-lat="28.6139" data-lng="77.2090" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 165, 0, 0.2); border: 1px solid #ffa500; color: #ffa500; border-radius: 3px; cursor: pointer;">🕌 Delhi</button>
+              </div>
+            </div>
+            
             <button id="showImpactMap" style="font-size: 11px; padding: 6px 12px; background: rgba(255, 204, 0, 0.2); border: 1px solid #ffcc00; color: #ffcc00; border-radius: 3px; width: 100%;">🗺️ View Impact Map</button>
           </div>
         </div>
@@ -206,9 +223,6 @@
                 </div>
                 <div id="missionFeasibility" style="font-size: 11px; color: #ccc; margin-bottom: 6px;">
                   Mission feasibility: Not calculated
-                </div>
-                <div id="costEstimate" style="font-size: 11px; color: #ffcc00;">
-                  Estimated cost: Calculating...
                 </div>
               </div>
 

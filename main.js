@@ -2717,6 +2717,28 @@ window.addEventListener('load', () => {
     });
   }
   
+  // Add location preset buttons functionality
+  const locationPresets = document.querySelectorAll('.location-preset');
+  locationPresets.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const lat = parseFloat(e.target.dataset.lat);
+      const lng = parseFloat(e.target.dataset.lng);
+      
+      if (!isNaN(lat) && !isNaN(lng)) {
+        // Update input fields
+        document.getElementById('impactLat').value = lat;
+        document.getElementById('impactLng').value = lng;
+        
+        // Update display
+        updateImpactDisplay();
+        
+        // Visual feedback
+        const cityName = e.target.textContent.trim();
+        console.log(`Applied location preset: ${cityName} (${lat}, ${lng})`);
+      }
+    });
+  });
+  
   setTimeout(() => {
     updateLoadingProgress(10, "Fetching asteroid data...");
     autoFetchAsteroids();
@@ -2777,21 +2799,6 @@ window.addEventListener('load', () => {
       }
     });
   }
-
-  // Location preset buttons
-  const locationPresets = document.querySelectorAll('.location-preset');
-  locationPresets.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const lat = this.getAttribute('data-lat');
-      const lng = this.getAttribute('data-lng');
-      
-      document.getElementById('impactLat').value = lat;
-      document.getElementById('impactLng').value = lng;
-      
-      // Trigger simulation
-      document.getElementById('simulateImpact').click();
-    });
-  });
 
   // Educational and Gamification mode buttons
   const educationalModeBtn = document.getElementById('educationalMode');

@@ -48,9 +48,12 @@ class ImpactZoneMap {
           <div><span style="color: #ff8844;">●</span> Severe Damage</div>
           <div><span style="color: #ffcc44;">●</span> Strong Shaking</div>
         </div>
-        <div id="impactStats" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 6px; color: white; font-size: 12px; min-width: 200px;">
-          <div style="color: #ffcc00; font-weight: bold; margin-bottom: 8px;">Impact Statistics</div>
-          <div id="statsContent">Select impact location</div>
+        <div id="impactStats" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); border-radius: 6px; color: white; font-size: 12px; min-width: 200px;">
+          <div class="dropdown-header" onclick="toggleImpactStats()" style="cursor: pointer; padding: 10px; border-bottom: 1px solid #444; display: flex; align-items: center; justify-content: space-between;">
+            <span style="color: #ffcc00; font-weight: bold;">📊 Impact Statistics</span>
+            <span id="impactStatsArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(0deg); transition: transform 0.3s;">▼</span>
+          </div>
+          <div id="statsContent" style="display: block; padding: 10px;">Select impact location</div>
         </div>
       </div>
     `;
@@ -73,6 +76,26 @@ class ImpactZoneMap {
     };
 
     this.isInitialized = true;
+  }
+
+  // Toggle impact statistics dropdown
+  toggleImpactStats() {
+    const content = document.getElementById('statsContent');
+    const arrow = document.getElementById('impactStatsArrow');
+    
+    if (!content || !arrow) return;
+    
+    const isOpen = content.style.display !== 'none';
+    
+    if (isOpen) {
+      // Close dropdown
+      content.style.display = 'none';
+      arrow.style.transform = 'rotate(-90deg)';
+    } else {
+      // Open dropdown
+      content.style.display = 'block';
+      arrow.style.transform = 'rotate(0deg)';
+    }
   }
 
   initializeWorldMap() {
@@ -501,7 +524,6 @@ class ImpactZoneMap {
 
 // Global instance
 window.ImpactZoneMap = ImpactZoneMap;
-window.impactZoneMap = new ImpactZoneMap();
 
 // Add CSS for animations
 const mapStyles = document.createElement('style');
@@ -531,3 +553,13 @@ mapStyles.textContent = `
   }
 `;
 document.head.appendChild(mapStyles);
+
+// Create global instance and expose toggle function
+window.impactZoneMap = new ImpactZoneMap();
+
+// Make toggle function globally accessible
+window.toggleImpactStats = function() {
+  if (window.impactZoneMap) {
+    window.impactZoneMap.toggleImpactStats();
+  }
+};
