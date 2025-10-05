@@ -130,7 +130,7 @@
   transition: color 0.2s;
 }
 #infoPanelLeft:hover, #infoPanelRight:hover {
-  color: #ffcc00;
+  color: #ffffff;
 }
 /* Removed invalid orphaned CSS property */
 /* Arrow icon for toggle button */
@@ -166,8 +166,8 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: #ddd;
-  background: #050814;
+  color: #ffffff;
+  background: #000000;
   overflow: hidden; /* Prevent scrollbars */
 }
 
@@ -347,12 +347,12 @@ body {
 #mitigationMethod option:hover,
 #mitigationMethod option:focus {
   background: #444 !important;
-  color: #ffcc00 !important;
+  color: #ffffff !important;
 }
 
 #mitigationMethod:focus {
   outline: none;
-  border-color: #ffcc00;
+  border-color: #ffffff;
   box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.3);
 }
 
@@ -360,12 +360,12 @@ body {
   background: rgba(255, 255, 255, 0.05);
   padding: 4px 8px;
   border-radius: 4px;
-  border-left: 3px solid #ffcc00;
+  border-left: 3px solid #ffffff;
 }
 
 /* Educational and gamification buttons */
 #educationalMode, #gamificationMode {
-  background: linear-gradient(45deg, #ffcc00, #ff8800);
+  background: linear-gradient(45deg, #ffffff, #cccccc);
   color: #000;
   border: none;
   border-radius: 6px;
@@ -386,7 +386,7 @@ body {
 #refreshBtn {
   background: rgba(68, 255, 136, 0.2);
   border: 1px solid rgba(68, 255, 136, 0.5);
-  color: #44ff88;
+  color: #cccccc;
   font-size: 12px;
   transition: all 0.2s;
 }
@@ -463,7 +463,7 @@ body {
 /* Enhanced tooltips and educational elements */
 .educational-tooltip {
   position: relative;
-  border-bottom: 1px dotted #ffcc00;
+  border-bottom: 1px dotted #ffffff;
   cursor: help;
 }
 
@@ -480,7 +480,7 @@ body {
   font-size: 12px;
   white-space: nowrap;
   z-index: 1000;
-  border: 1px solid #ffcc00;
+  border: 1px solid #ffffff;
 }
 
 /* Responsive adjustments for mobile */
@@ -789,7 +789,7 @@ button:hover {
 
 #citySelect optgroup {
   background: #333 !important;
-  color: #ffcc00 !important;
+  color: #ffffff !important;
   font-weight: bold;
   font-size: 11px;
   padding: 4px 8px;
@@ -798,12 +798,12 @@ button:hover {
 #citySelect option:hover,
 #citySelect option:focus {
   background: #444 !important;
-  color: #ffcc00 !important;
+  color: #ffffff !important;
 }
 
 #citySelect:focus {
   outline: none;
-  border-color: #ffcc00;
+  border-color: #ffffff;
   box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.3);
 }
 

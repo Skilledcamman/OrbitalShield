@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OrbitalShield — Asteroid Impact Simulation & Planetary Defense</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap');
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+      color: #ffffff;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(0,0,0,0.98);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.55);
+      border-radius: 20px;
+      padding: 36px 38px 38px 38px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+    h1, h2 {
+      color: #ffcc00;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 12px #000000;
+    }
+    h1 {
+      font-size: 2.6em;
+    }
+    h2 {
+      font-size: 1.7em;
+    }
+    .subtitle {
+      color: #cccccc;
+      font-size: 1.15em;
+      margin-bottom: 32px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    .section {
+      margin-bottom: 36px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255,204,0,0.13);
+    }
+    ul {
+      margin: 0 0 0 1.5em;
+      padding: 0;
+    }
+    li {
+      font-size: 1.07em;
+      margin-bottom: 0.6em;
+      line-height: 1.55em;
+    }
+    .imgbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 24px 0;
+    }
+    .showcase {
+      max-width: 96%;
+      border-radius: 14px;
+      box-shadow: 0 4px 22px rgba(255,204,0,0.4), 0 1px 10px #000000;
+      border: 2px solid #ffcc00;
+    }
+    .cta {
+      background: linear-gradient(90deg, #ffcc00 0%, #e6b800 100%);
+      color: #000000;
+      font-weight: bold;
+      font-size: 1.15em;
+      padding: 14px 26px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 22px;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(255,204,0,0.4);
+      transition: background 0.2s;
+    }
+    .cta:hover {
+      background: linear-gradient(90deg, #e6b800 0%, #ffcc00 100%);
+      color: #000000;
+    }
+    .badges {
+      margin-top: 20px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: #333333;
+      color: #ffcc00;
+      padding: 7px 14px;
+      border-radius: 7px;
+      font-size: 0.97em;
+      letter-spacing: 0.03em;
+      box-shadow: 0 1px 5px rgba(255,204,0,0.3);
+    }
+    @media (max-width: 600px) {
+      .container { padding: 15px 5vw; }
+      h1 { font-size: 1.7em; }
+      h2 { font-size: 1.2em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>OrbitalShield</h1>
+    <div class="subtitle">Asteroid Impact Simulation &amp; Planetary Defense</div>
+    <div class="section">
+      <strong>Protecting Earth from Asteroid Threats</strong>
+      <ul>
+        <li>Real NASA &amp; USGS data integration</li>
+        <li>Scientific impact modeling</li>
+        <li>3D visualization &amp; interactive scenario builder</li>
+        <li>Accessible and educational</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Why OrbitalShield?</h2>
+      <ul>
+        <li><b>Asteroid impacts:</b> Real, rare, catastrophic events</li>
+        <li><b>Public awareness &amp; science education</b> are critical</li>
+        <li>OrbitalShield bridges data, science, and engagement:
+          <ul>
+            <li>Empowers users to simulate, strategize, and analyze Earth defense scenarios</li>
+            <li>Makes planetary defense interactive and understandable</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Interactive 3D Visualization</h2>
+      <ul>
+        <li>Three.js-powered globe with live asteroid orbits</li>
+        <li>Rich visuals: neon trails, dramatic color schemes, sound effects</li>
+      </ul>
+      <div class="imgbox">
+        <img class="showcase" src="1.png" alt="Impact Zone Map Screenshot">
+      </div>
+    </div>
+    <div class="section">
+      <h2>Impact Simulation &amp; Risk Assessment</h2>
+      <p>Advanced physics-based impact modeling system that calculates comprehensive damage scenarios and environmental effects for asteroid collision events.</p>
+      <ul>
+        <li><b>Crater Physics:</b> Accurate crater diameter and depth calculations based on kinetic energy transfer</li>
+        <li><b>Seismic Analysis:</b> Earthquake magnitude estimation with damage radius and population impact zones</li>
+        <li><b>Environmental Effects:</b> Atmospheric disruption, tsunami risk, and global climate impact modeling</li>
+        <li><b>Population Risk:</b> Real-time assessment of affected populations and infrastructure damage estimates</li>
+        <li><b>Interactive Targeting:</b> Click-and-simulate functionality with customizable impact coordinates</li>
+      </ul>
+      <div class="imgbox">
+        <img class="showcase" src="2.png" alt="Impact Simulation Analysis Screenshot">
+      </div>
+    </div>
+    <div class="section">
+      <h2>Defense Strategies &amp; Mitigation Systems</h2>
+      <p>OrbitalShield features an advanced planetary defense analysis engine that evaluates multiple deflection strategies and automatically selects the optimal approach based on asteroid characteristics, warning time, and mission constraints.</p>
+      <ul>
+        <li><b>Intelligent Method Selection:</b> automatically selects best deflection method based on asteroid properties</li>
+        <li><b>Mission Optimization:</b> Real-time parameter adjustment with cost-benefit analysis and success probability calculations</li>
+        <li><b>Scenario Comparison:</b> Interactive testing of different approaches with comprehensive impact modeling</li>
+        <li><b>Educational Interface:</b> Visual mission planning tools with step-by-step deflection strategy explanations</li>
+      </ul>
+      <div class="imgbox">
+        <img class="showcase" src="3.png" alt="Defense System Analysis Screenshot">
+      </div>
+    </div>
+    <div class="section">
+      <h2>User Experience &amp; Education</h2>
+      <ul>
+        <li>Scenario builder: real, historical, and fictional asteroid threats</li>
+        <li>Dynamic controls: adjust asteroid, impact, and mitigation parameters</li>
+        <li>Educational overlays, infographics, and pop-up facts</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Data Integration &amp; Scientific Modeling</h2>
+      <ul>
+        <li><b>Data Sources:</b>
+          <ul>
+            <li>NASA NeoWS (Near Earth Object Web Service)</li>
+            <li>USGS Earthquake &amp; Elevation APIs</li>
+          </ul>
+        </li>
+        <li><b>Physics Engine:</b>
+          <ul>
+            <li>Real orbital mechanics &amp; Keplerian calculations</li>
+            <li>Impact energy, crater size, seismic &amp; tsunami modeling</li>
+            <li>Population risk estimation</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="section">
+      <h2>Accessibility &amp; Scientific Rigor</h2>
+      <ul>
+        <li>Responsive design, clutter free, bright distinguishable colors</li>
+        <li>Physically accurate calculations, peer-reviewed formulas</li>
+        <li>Transparent codebase and open-source collaboration</li>
+      </ul>
+      <div class="badges">
+        <span class="badge">Accessible</span>
+        <span class="badge">Open Source</span>
+        <span class="badge">STEM EdTech</span>
+      </div>
+    </div>
+    <div class="section" style="border-bottom: none;">
+      <h2>The Future of OrbitalShield</h2>
+      <ul>
+        <li>Planned: AI/ML risk prediction, AR visualization, internationalization</li>
+        <li>Open for contributions &amp; feedback</li>
+        <li>Let’s make planetary defense a global, interactive mission!</li>
+      </ul>
+      <a href="https://orbital-shield.vercel.app" class="cta" target="_blank">
+        🚀 Try it on Vercel!
+      </a>
+    </div>
+  </div>
+</body>
+</html>
