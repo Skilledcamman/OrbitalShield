@@ -1,319 +1,200 @@
-# 🌍 OrbitalShield: Advanced Asteroid Impact Visualization Platform
+# 🛡️ OrbitalShield
 
-**An interactive, educational, and scientifically accurate asteroid threat assessment system using real NASA and USGS data.**
+**Real-time Near-Earth Asteroid Tracking and Impact Assessment System**
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.0.0-green.svg)
-![Status](https://img.shields.io/badge/status-production--ready-brightgreen.svg)
+OrbitalShield is an advanced web-based application that provides real-time visualization and analysis of Near-Earth Asteroids (NEAs) using NASA's NeoWS API. The system combines cutting-edge 3D visualization with comprehensive impact assessment tools and planetary defense strategies.
 
-## 🚀 Project Overview
+![OrbitalShield Interface](https://img.shields.io/badge/Status-Active-brightgreen) ![Three.js](https://img.shields.io/badge/Three.js-0.150.1-blue) ![NASA API](https://img.shields.io/badge/NASA-NeoWS_API-orange)
 
-OrbitalShield is a comprehensive web-based platform that transforms complex asteroid threat data into an accessible, interactive visualization and simulation tool. Built for scientists, policymakers, educators, and the public, it integrates real-time NASA Near Earth Object (NEO) data with USGS environmental datasets to provide unprecedented insight into asteroid impact scenarios and mitigation strategies.
+## 🌟 Features
 
-### 🎯 Challenge Requirements Met
+### 🌍 3D Visualization
+- **Interactive Earth Model**: High-resolution 3D Earth with realistic textures
+- **Real-time Asteroid Tracking**: Live visualization of Near-Earth Asteroids from NASA data
+- **Orbital Mechanics**: Accurate asteroid trajectory visualization with orbital parameters
+- **Dynamic Camera Controls**: Free-roam camera with zoom, pan, and rotation capabilities
 
-✅ **Real NASA & USGS Data Integration**  
-✅ **Interactive 3D Asteroid Visualization**  
-✅ **Environmental Impact Modeling**  
-✅ **Mitigation Strategy Simulation**  
-✅ **Educational & Gamification Features**  
-✅ **Scientific Accuracy & Accessibility**  
-✅ **Scenario-Based Storytelling**
+### 📊 Impact Assessment
+- **Impact Zone Analysis**: Detailed analysis of potential impact zones with geographical data
+- **Risk Assessment**: Comprehensive threat evaluation based on asteroid characteristics
+- **Damage Modeling**: Kinetic energy calculations and impact crater predictions
+- **Population Impact**: Assessment of affected populations and infrastructure
 
-## 🌟 Key Features
+### 🛡️ Defense Systems
+- **Kinetic Impactor Analysis**: DART-style mission planning and effectiveness calculations
+- **Gravity Tractor Modeling**: Long-term deflection strategy analysis
+- **Nuclear Option Evaluation**: Last-resort deflection method assessment
+- **Mission Optimization**: Cost-benefit analysis for different defense strategies
 
-### 🛰️ Real-Time Data Integration
-- **NASA NeoWS API**: Live asteroid tracking with orbital parameters
-- **USGS Earthquake Data**: Recent seismic activity for impact correlation  
-- **USGS Elevation API**: Topographical data for tsunami risk assessment
-- **Real-time Updates**: Optional 5-minute data refresh cycles
-- **Smart Caching**: Efficient data management with fallback systems
+### 🎯 Scenario Simulation
+- **Historical Events**: Recreation of past close approaches (e.g., Apophis 2029)
+- **Custom Scenarios**: User-defined impact scenarios with adjustable parameters
+- **What-if Analysis**: Explore different deflection timing and methods
+- **Educational Simulations**: Interactive learning experiences about planetary defense
 
-### 🌍 Advanced 3D Visualization
-- **Three.js-Powered Rendering**: Smooth, interactive 3D Earth and asteroid models
-- **Realistic Orbital Mechanics**: Keplerian orbital element calculations
-- **Dynamic Asteroid Scaling**: Adjustable size visualization (1x-25x)
-- **Procedural Asteroid Generation**: Unique, seed-based asteroid meshes
-- **Starfield Background**: Immersive space environment
-
-### 📊 Environmental Impact Modeling
-- **Tsunami Risk Assessment**: Coastal proximity analysis with wave height calculations
-- **Seismic Effect Modeling**: Multi-zone earthquake impact simulation
-- **Atmospheric Effect Analysis**: From local airbursts to global climate change
-- **Population Risk Estimation**: Major city impact assessment
-- **Crater Scaling**: Scientific crater diameter calculations
-
-### 🗺️ Interactive Impact Mapping
-- **2D World Map Overlay**: SVG-based global impact visualization
-- **Multi-Zone Effect Circles**: Crater, damage, shaking, and tsunami zones
-- **Real-Time Statistics**: Dynamic impact metrics and population estimates
-- **Click-to-Set Impacts**: Interactive impact location selection
-- **Location Presets**: Quick access to major cities (NYC, LA, Tokyo, London)
-
-### 🎮 Gamification & Education
-- **"Defend Earth" Mode**: Score-based deflection challenges
-- **Educational Overlays**: Comprehensive physics and impact explanations
-- **Interactive Tooltips**: Contextual information throughout the interface
-- **Mission Scoring**: Points based on successful deflections and energy savings
-
-### 🎭 Scenario System
-- **Pre-built Scenarios**:
-  - **Apophis 2029**: Historical close approach simulation
-  - **Modern Tunguska**: Urban impact scenario
-  - **Extinction Event**: Dinosaur-killer asteroid simulation
-  - **City-Killer**: 300m asteroid regional threat
-  - **Fragmented Shower**: Multi-impact complex scenario
-- **Custom Scenario Builder**: User-defined parameters and impact locations
-- **Story-Driven Experience**: Narrative context for each scenario
-- **Multi-Fragment Support**: Complex breakup scenarios
-
-### 🛡️ Mitigation Strategy Analysis
-- **Multiple Deflection Methods**:
-  - Kinetic Impactors (90-95% efficiency)
-  - Gravity Tractors (70-80% efficiency)  
-  - Nuclear Deflection (95-99% efficiency)
-  - Laser Ablation (60-75% efficiency)
-- **Delta-V Calculations**: Precise velocity change requirements
-- **Mission Timeline Planning**: Years-to-impact optimization
-- **Cost Estimation**: Realistic mission budget projections
-- **Success Probability**: Method-specific efficiency ratings
-
-## 🔧 Technical Architecture
-
-### Frontend Stack
-- **HTML5**: Semantic structure with accessibility features
-- **CSS3**: Advanced styling with responsive design
-- **JavaScript ES6+**: Modular architecture with import/export
-- **Three.js**: 3D graphics and orbital mechanics
-- **CSS2DRenderer**: Hybrid 2D/3D labeling system
-
-### API Integration
-- **NASA NeoWS API**: asteroid orbital and physical parameters
-- **USGS Earthquake API**: Recent seismic activity data
-- **USGS Elevation API**: Topographical elevation queries
-- **CORS-Enabled**: Client-side API consumption
-- **Rate Limiting**: Respectful API usage with caching
-
-### Performance Optimizations
-- **Instanced Rendering**: Efficient handling of small asteroids
-- **Level-of-Detail**: Dynamic geometry based on size
-- **Progressive Loading**: Staged content loading with progress indicators
-- **Smart Animations**: Frame-rate adaptive animations
-- **Memory Management**: Efficient texture and geometry disposal
-
-## 📚 Scientific Accuracy
-
-### Physics Calculations
-- **Impact Energy**: KE = ½mv² with realistic density assumptions
-- **Crater Scaling**: Established scientific scaling relationships
-- **Torino Scale**: Proper risk classification implementation
-- **Seismic Magnitude**: Empirical energy-to-magnitude conversion
-- **Tsunami Modeling**: Simplified but physics-based wave calculations
-
-### Orbital Mechanics
-- **Keplerian Elements**: Semi-major axis, eccentricity, inclination
-- **Orbital Position**: True anomaly and eccentric anomaly calculations
-- **Time Evolution**: Proper orbital period and mean motion
-- **Coordinate Transformations**: Orbital to Cartesian conversions
-
-### Environmental Effects
-- **Population Density**: Major city population impact estimates
-- **Coastal Analysis**: Simplified but realistic tsunami risk assessment
-- **Atmospheric Effects**: Scaled impact-to-climate correlations
-- **Geographic Correlation**: Location-based risk modifiers
-
-## 🎨 User Experience Design
-
-### Accessibility Features
-- **Responsive Design**: Mobile and desktop optimization
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Screen Reader Support**: ARIA labels and semantic HTML
-- **Colorblind-Friendly**: High contrast and pattern-based differentiation
-- **Progressive Enhancement**: Graceful degradation for older browsers
-
-### Interactive Elements
-- **Intuitive Controls**: Drag, zoom, and rotate with mouse/touch
-- **Search Functionality**: Live asteroid search with autocomplete
-- **Smart Tooltips**: Context-aware hover information
-- **Progress Indicators**: Clear feedback for loading operations
-- **Minimizable UI**: Distraction-free exploration mode
+### 📡 Data Integration
+- **NASA NeoWS API**: Real-time asteroid data from NASA's Near-Earth Object Web Service
+- **USGS Integration**: Earthquake data and elevation models for impact analysis
+- **Astronomical Data**: Comprehensive orbital mechanics and asteroid characteristics
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Modern web browser (Chrome 80+, Firefox 75+, Safari 13+)
-- Active internet connection for API data
-- No additional dependencies or installations required
+- Modern web browser with WebGL support
+- NASA API key (free registration required)
+- Internet connection for real-time data
 
-### Quick Start
-1. Clone or download the repository
-2. Serve files via HTTP server (required for CORS)
-3. Open `index.html` in your browser
-4. Wait for data loading to complete
-5. Start exploring asteroids!
+### Installation
 
-### Local Development
-```bash
-# Simple HTTP server options:
-python -m http.server 8000
-# or
-npx http-server
-# or
-php -S localhost:8000
+1. **Clone the repository**
+   ```bash
+   git clone [repository-url]
+   cd OrbitalShield
+   ```
+
+2. **Configure API Access**
+   - Get your free NASA API key from [NASA Open Data Portal](https://api.nasa.gov/)
+   - Open the `.env` file and add your API key:
+   ```
+   NASA_API_KEY=your_api_key_here
+   ```
+
+3. **Launch the Application**
+   - Open `index.html` in a modern web browser
+   - Or serve through a local web server:
+   ```bash
+   # Using Python
+   python -m http.server 8000
+   
+   # Using Node.js
+   npx serve .
+   ```
+
+4. **Access the Application**
+   - Navigate to `http://localhost:8000` (if using local server)
+   - Or open `index.html` directly in your browser
+
+## 🎮 How to Use
+
+### Basic Navigation
+1. **Loading**: The application loads asteroid data and initializes the 3D environment
+2. **Entry Screen**: Scroll down from the welcome screen to enter the main interface
+3. **3D Controls**: 
+   - **Left Mouse**: Rotate camera around Earth
+   - **Mouse Wheel**: Zoom in/out
+   - **Right Mouse**: Pan view
+
+### Asteroid Analysis
+1. **Select Asteroid Count**: Use the slider to choose how many asteroids to display (1-200)
+2. **Asteroid Selection**: Click on any asteroid to view detailed information
+3. **Data Panel**: View asteroid characteristics, orbital parameters, and threat assessment
+4. **Impact Assessment**: Set custom impact coordinates to analyze potential damage
+
+### Defense System Analysis
+1. **Open Defense Panel**: Click to expand the planetary defense section
+2. **Method Selection**: Choose from kinetic impactor, gravity tractor, or nuclear options
+3. **Mission Parameters**: Adjust warning time, spacecraft mass, and mission duration
+4. **Optimization**: View cost-effectiveness and success probability calculations
+
+### Scenario Exploration
+1. **Scenario Menu**: Access pre-defined scenarios or create custom ones
+2. **Historical Events**: Explore past close approaches like Apophis 2029
+3. **Custom Scenarios**: Set your own asteroid parameters and impact locations
+4. **Impact Simulation**: Run detailed simulations with geological and population data
+
+## 📁 File Structure
+
+```
+OrbitalShield/
+├── index.html              # Main application HTML
+├── main.js                 # Core application logic and NASA API integration
+├── style.css               # Application styling and responsive design
+├── defense-system.js       # Planetary defense analysis system
+├── impact-map.js          # Impact zone visualization and analysis
+├── scenarios.js           # Scenario simulation system
+├── earth.jpg              # Earth texture for 3D model
+├── starmap.jpg            # Background starfield texture
+├── .env                   # Environment variables (API keys)
+├── .gitignore            # Git ignore rules
+└── README.md             # This file
 ```
 
-### API Configuration
-The system uses a demo NASA API key. For production use:
-1. Obtain your API key from [NASA API Portal](https://api.nasa.gov/)
-2. Replace the key in `main.js` line 49
-3. Implement secure key storage for production
+## 🔧 Technical Details
 
-## 📖 Usage Guide
+### Technologies Used
+- **Three.js 0.150.1**: 3D graphics engine for WebGL rendering
+- **JavaScript ES6+**: Modern JavaScript with modules and async/await
+- **NASA NeoWS API**: Real-time asteroid data
+- **USGS APIs**: Geological and earthquake data
+- **WebGL**: Hardware-accelerated 3D graphics
+- **CSS3**: Advanced styling with animations and responsive design
 
-### Basic Exploration
-1. **View Asteroids**: Wait for loading, then explore the 3D visualization
-2. **Select Objects**: Click asteroid names or use the search function
-3. **Adjust Settings**: Use controls panel for size, count, and parameters
-4. **Real-time Updates**: Toggle live data updates in controls
-
-### Impact Analysis
-1. **Set Location**: Use coordinate inputs or preset city buttons
-2. **View Impact Map**: Click "View Impact Map" for detailed analysis
-3. **Analyze Effects**: Review crater, damage, and population statistics
-4. **Environmental Assessment**: Check tsunami and seismic risks
-
-### Mitigation Planning
-1. **Select Asteroid**: Choose a potentially hazardous object
-2. **Adjust Parameters**: Set deflection method and delta-V values
-3. **Timeline Planning**: Modify years-to-impact for optimization
-4. **Mission Analysis**: Review efficiency and cost estimates
-
-### Educational Features
-1. **Educational Mode**: Click "Educational Mode" for comprehensive physics explanations
-2. **Scenario Exploration**: Use "Scenarios" button for guided simulations
-3. **Gamification**: Try "Defend Earth" mode for interactive challenges
-
-## 🎭 Scenario Descriptions
-
-### Historical Scenarios
-- **Apophis 2029**: Experience the closest large asteroid approach in modern history
-- **Tunguska Modern**: Explore a 1908-style impact over today's urban areas
-
-### Threat Level Scenarios  
-- **City-Killer**: Regional devastation from a 300-meter asteroid
-- **Extinction Event**: Global catastrophe simulation with climate effects
-
-### Complex Scenarios
-- **Fragmented Shower**: Multiple simultaneous threats requiring coordination
-- **Custom Builder**: Create your own scenarios with any parameters
-
-## 🔬 Educational Value
-
-### Learning Objectives
-- Understanding asteroid classification and orbital mechanics
-- Comprehending impact energy relationships and scaling laws
-- Analyzing environmental effects and risk assessment
-- Exploring planetary defense technologies and strategies
-- Developing crisis management and decision-making skills
-
-### Target Audiences
-- **Scientists**: Research tool for impact analysis and deflection planning
-- **Policymakers**: Risk assessment for emergency planning and funding decisions  
-- **Educators**: Engaging tool for physics, astronomy, and earth science education
-- **Students**: Interactive learning platform for STEM concepts
-- **Public**: Accessible introduction to planetary defense concepts
-
-## 🌐 Future Enhancements
-
-### Near-Term Features
-- **Multi-language Support**: International accessibility
-- **Mobile App**: Native iOS/Android applications
-- **Social Sharing**: Share scenarios and results
-- **Data Export**: CSV/JSON export for analysis
-- **Advanced Physics**: N-body gravitational simulations
-
-### Long-Term Vision
-- **AI Integration**: Machine learning for risk prediction
-- **Augmented Reality**: AR asteroid tracking and visualization
-- **Global Collaboration**: Multi-agency data integration
-- **Mission Planning**: Detailed spacecraft trajectory optimization
-- **Public Alerts**: Integration with emergency warning systems
-
-## 🤝 Contributing
-
-We welcome contributions from the scientific community, educators, and developers:
-
-1. **Issue Reporting**: Submit bugs and feature requests via GitHub Issues
-2. **Code Contributions**: Fork, modify, and submit pull requests
-3. **Scientific Review**: Validate physics calculations and methodologies
-4. **Educational Content**: Suggest improvements for accessibility and learning
-5. **Translation**: Help make OrbitalShield globally accessible
-
-### Development Guidelines
-- Follow established code patterns and commenting standards
-- Maintain scientific accuracy in all calculations
-- Ensure accessibility compliance
-- Test across multiple browsers and devices
-- Document new features thoroughly
-
-## 📄 License & Credits
-
-### License
-This project is licensed under the MIT License - see LICENSE file for details.
-
-### Data Sources
-- **NASA Center for Near Earth Object Studies (CNEOS)**
-- **NASA Near Earth Object Web Service (NeoWS)**
-- **United States Geological Survey (USGS)**
-- **International Astronomical Union Minor Planet Center**
-
-### Acknowledgments
-- NASA Planetary Defense Coordination Office
-- ESA Space Situational Awareness Programme  
-- B612 Foundation for planetary defense advocacy
-- The global astronomical community for NEO discovery and tracking
-
-### Scientific Consultants
-Special thanks to the planetary defense community for guidance on:
-- Impact physics and scaling relationships
-- Deflection technology effectiveness estimates
-- Risk communication and public education strategies
-
-## 📊 Technical Specifications
-
-### Performance Metrics
-- **Load Time**: < 5 seconds on modern connections
-- **Frame Rate**: 60 FPS on recommended hardware
-- **Memory Usage**: < 200MB typical browser allocation
-- **API Efficiency**: < 1MB per data refresh cycle
+### Performance Considerations
+- **Asteroid Caching**: Intelligent caching system to minimize API calls
+- **LOD (Level of Detail)**: Optimized rendering for different zoom levels
+- **Async Loading**: Progressive loading for better user experience
+- **Memory Management**: Efficient cleanup of 3D objects and textures
 
 ### Browser Compatibility
-- **Chrome**: 80+ (Recommended)
-- **Firefox**: 75+
-- **Safari**: 13+
-- **Edge**: 80+
-- **Mobile**: iOS Safari 13+, Android Chrome 80+
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
 
-### Hardware Requirements
-- **Minimum**: 2GB RAM, integrated graphics
-- **Recommended**: 4GB RAM, dedicated graphics
-- **Optimal**: 8GB RAM, modern GPU for 4K displays
+## 🛠️ Development
 
-## 📞 Contact & Support
+### Adding New Features
+1. **Defense Methods**: Extend `ASTEROID_DEFENSE_METHODS` in `defense-system.js`
+2. **Scenarios**: Add new scenarios to the `scenarios` object in `scenarios.js`
+3. **Visualizations**: Implement new Three.js components in `main.js`
 
-### Project Maintainers
-- **Lead Developer**: [Contact Information]
-- **Scientific Advisor**: [Contact Information]
-- **Education Coordinator**: [Contact Information]
+### API Integration
+- The system uses NASA's NeoWS API for real-time asteroid data
+- USGS APIs provide geological context for impact analysis
+- All API calls are cached to improve performance and respect rate limits
 
-### Community
-- **GitHub Repository**: [Repository URL]
-- **Documentation**: [Docs URL]
-- **Discussion Forum**: [Forum URL]
-- **Email Support**: [Support Email]
+### Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📖 Educational Use
+
+OrbitalShield is designed for:
+- **STEM Education**: Interactive learning about space science and planetary defense
+- **Research**: Asteroid impact analysis and mission planning
+- **Public Outreach**: Engaging visualization of space hazards and protection strategies
+- **Academic Projects**: Real-world application of orbital mechanics and data visualization
+
+## 🔐 Security Notes
+
+- Keep your NASA API key secure and never commit it to version control
+- The `.env` file is included in `.gitignore` to protect sensitive data
+- Use environment variables or secure configuration management in production
+
+## 📊 Data Sources
+
+- **NASA JPL**: Near-Earth Asteroid data via NeoWS API
+- **USGS**: Earthquake and geological data
+- **NASA Planetary Defense Office**: Defense strategy methodologies
+- **ESA Space Situational Awareness**: Additional orbital mechanics data
+
+## 🤝 Acknowledgments
+
+- NASA's Planetary Defense Coordination Office
+- The DART mission team for kinetic impactor validation
+- ESA's Space Situational Awareness program
+- The Three.js community for 3D visualization tools
+- USGS for geological and seismic data services
+
+## 📄 License
+
+This project is open source and available under the MIT License.
 
 ---
 
-**OrbitalShield**: Empowering humanity with knowledge and tools for planetary defense through accessible, accurate, and engaging asteroid impact visualization.
+**⚠️ Disclaimer**: This application is for educational and research purposes. While based on real NASA data and scientific principles, it should not be used for actual planetary defense planning or emergency response decisions.
 
-*"The universe is not only stranger than we imagine, it is stranger than we can imagine. But with the right tools, we can prepare for its challenges."*
+For questions, suggestions, or contributions, please open an issue or submit a pull request.

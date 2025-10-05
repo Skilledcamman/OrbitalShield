@@ -992,7 +992,7 @@ function getAsteroidLabelText(asteroid) {
 
 async function autoFetchAsteroids() {
   // TODO: Replace hardcoded API key with secure handling (e.g., environment variable or user input)
-  const key = 'api_key';
+  const key = 'vtR582RLfHiFz1EPNfMLdXr3auzMoaSMlj47tSTb';
   const countInput = document.getElementById('asteroidCount');
   const maxCount = countInput ? Math.min(200, parseInt(countInput.value) || 20) : 20;
   const asteroids = await fetchAsteroids(key, maxCount);
@@ -1007,7 +1007,7 @@ async function autoFetchAsteroids() {
 }
 
 async function refreshAsteroids() {
-  const key = 'api_key';
+  const key = 'vtR582RLfHiFz1EPNfMLdXr3auzMoaSMlj47tSTb';
   const countInput = document.getElementById('asteroidCount');
   const maxCount = countInput ? Math.min(200, parseInt(countInput.value) || 20) : 20;
   const now = Date.now();
