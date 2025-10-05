@@ -2734,6 +2734,55 @@ window.addEventListener('load', () => {
   
   if (simulateImpactBtn) {
     simulateImpactBtn.addEventListener('click', function() {
+      // Check if an asteroid is selected first
+      if (!window.currentSelectedAsteroid) {
+        // Show popup asking to click on an asteroid
+        const popup = document.createElement('div');
+        popup.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(0, 0, 0, 0.9);
+          border: 2px solid #ffcc00;
+          border-radius: 10px;
+          padding: 30px;
+          z-index: 10000;
+          text-align: center;
+          color: white;
+          font-family: Arial, sans-serif;
+          box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+          max-width: 400px;
+        `;
+        
+        popup.innerHTML = `
+          <div style="font-size: 24px; margin-bottom: 15px;">🎯</div>
+          <h3 style="color: #ffcc00; margin: 0 0 15px 0;">Select an Asteroid First</h3>
+          <p style="margin: 0 0 20px 0; line-height: 1.4;">
+            To simulate an impact, you need to select an asteroid from the 3D view or the searchbar first.
+          </p>
+          <p style="margin: 0 0 20px 0; font-size: 14px; color: #ccc;">
+            Click on any asteroid in the visualization to see its details and run impact simulations.
+          </p>
+          <button onclick="this.parentElement.remove()" 
+                  style="background: #ffcc00; color: #000; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+            Got it!
+          </button>
+        `;
+        
+        document.body.appendChild(popup);
+        
+        // Auto-remove popup after 5 seconds
+        setTimeout(() => {
+          if (popup.parentElement) {
+            popup.remove();
+          }
+        }, 5000);
+        
+        return;
+      }
+
+      // Original functionality if asteroid is selected
       const latInput = document.getElementById('impactLat');
       const lngInput = document.getElementById('impactLng');
       
@@ -2746,7 +2795,7 @@ window.addEventListener('load', () => {
           if (infoPanel) {
             infoPanel.innerHTML = `
               <div style="color:#ffcc00;">🎯 Impact Location Set: ${lat.toFixed(1)}°, ${lng.toFixed(1)}°</div>
-              <div style="font-size:12px; margin-top:4px;">Select an asteroid to see environmental impact analysis for this location.</div>
+              <div style="font-size:12px; margin-top:4px;">Impact simulation ready for ${window.currentSelectedAsteroid.name || 'selected asteroid'} at this location.</div>
             `;
           }
         } else {
@@ -2760,8 +2809,38 @@ window.addEventListener('load', () => {
 
   if (showImpactMapBtn) {
     showImpactMapBtn.addEventListener('click', function() {
-      if (window.impactZoneMap) {
-        window.impactZoneMap.show();
+      // Check if an asteroid is selected
+      if (window.currentSelectedAsteroid) {
+        // Navigate to Environmental section (index 3) in the info panel
+        const infoPanel = document.getElementById('infoPanel');
+        if (infoPanel && infoPanel.style.display !== 'none') {
+          // Find the updatePage function scope and navigate to Environmental page
+          const scroller = document.getElementById('infoPanelScroller');
+          const dots = document.querySelectorAll('.infoPanelDot');
+          if (scroller) {
+            // Navigate to Environmental section (index 3)
+            const environmentalPageIndex = 3;
+            scroller.scrollTo({ left: 340 * environmentalPageIndex, behavior: 'smooth' });
+            // Update dots if they exist
+            dots.forEach((d, i) => {
+              d.style.background = i === environmentalPageIndex ? '#fff' : '#fff';
+              d.style.opacity = i === environmentalPageIndex ? '1' : '0.4';
+              d.classList.toggle('active', i === environmentalPageIndex);
+            });
+          }
+        }
+      } else {
+        // Show message to select an asteroid first
+        const infoPanel = document.getElementById('infoPanel');
+        if (infoPanel) {
+          infoPanel.innerHTML = `
+            <div style="color:#ffcc00; text-align: center; padding: 20px;">
+              <div style="font-size: 18px; margin-bottom: 10px;">🎯</div>
+              <div style="font-size: 14px; margin-bottom: 8px;">Please select an asteroid first</div>
+              <div style="font-size: 12px; color: #ccc;">Click on any asteroid in the 3D view to see the Impact Map option</div>
+            </div>
+          `;
+        }
       }
     });
   }
