@@ -254,9 +254,9 @@ body {
   padding: 2vw 2vw 2vw 2vw;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  max-width: 480px;
-  min-width: 260px;
-  width: 28vw;
+  max-width: 520px;
+  min-width: 280px;
+  width: 32vw;
   color: #fff;
   transition: width 0.3s cubic-bezier(.4,2,.6,1), background 0.3s;
   position: fixed;
@@ -266,6 +266,229 @@ body {
   margin: 0;
   z-index: 20;
   overflow: visible;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* Enhanced scrollbar for controls */
+#controls::-webkit-scrollbar {
+  width: 6px;
+}
+
+#controls::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+#controls::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+#controls::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Real-time controls styling */
+#realTimeControls {
+  background: rgba(0, 100, 0, 0.2);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+#realTimeControls input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #44ff88;
+}
+
+/* Impact location controls */
+#impactLocationControls {
+  background: rgba(100, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 100, 100, 0.3);
+}
+
+#impactLocationControls input[type="number"] {
+  width: 80px;
+  font-size: 12px;
+  padding: 4px 6px;
+}
+
+.location-preset {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 4px;
+  transition: background 0.2s;
+}
+
+.location-preset:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Enhanced mitigation controls */
+#mitigationMethod {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+#mitigationEfficiency {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border-left: 3px solid #ffcc00;
+}
+
+/* Educational and gamification buttons */
+#educationalMode, #gamificationMode {
+  background: linear-gradient(45deg, #ffcc00, #ff8800);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#educationalMode:hover, #gamificationMode:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 204, 0, 0.3);
+}
+
+#gamificationMode {
+  background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+}
+
+/* Refresh button styling */
+#refreshBtn {
+  background: rgba(68, 255, 136, 0.2);
+  border: 1px solid rgba(68, 255, 136, 0.5);
+  color: #44ff88;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+#refreshBtn:hover {
+  background: rgba(68, 255, 136, 0.3);
+  transform: scale(1.05);
+}
+
+/* Game overlay animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Enhanced info panel styling */
+#infoPanel {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ddd;
+  max-height: 250px;
+  overflow-y: auto;
+  font-size: 13px;
+  pointer-events: auto;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+/* Enhanced group styling with better visual hierarchy */
+.info-group > div:first-child {
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.15em;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Color coding for different impact types */
+.info-group div:contains("DIRECT IMPACT") {
+  color: #ffbbbb !important;
+}
+
+.info-group div:contains("SEISMIC EFFECTS") {
+  color: #ffd700 !important;
+}
+
+.info-group div:contains("TSUNAMI RISK") {
+  color: #87ceeb !important;
+}
+
+.info-group div:contains("ATMOSPHERIC") {
+  color: #dda0dd !important;
+}
+
+.info-group div:contains("POPULATION AT RISK") {
+  color: #ff6b6b !important;
+}
+
+.info-group div:contains("MITIGATION WINDOW") {
+  color: #98fb98 !important;
+}
+
+/* Enhanced tooltips and educational elements */
+.educational-tooltip {
+  position: relative;
+  border-bottom: 1px dotted #ffcc00;
+  cursor: help;
+}
+
+.educational-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  border: 1px solid #ffcc00;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  #controls {
+    width: 90vw;
+    max-width: none;
+    left: 5vw;
+    top: auto;
+    bottom: 20px;
+    transform: none;
+    max-height: 40vh;
+  }
+  
+  .info-group-wrapper {
+    min-width: 280px !important;
+    max-width: 280px !important;
+  }
+  
+  #infoPanelScroller {
+    width: 280px !important;
+  }
+  
+  #impactLocationControls input[type="number"] {
+    width: 60px;
+    font-size: 11px;
+  }
 }
 
 /* Controls header with legend and toggle button */

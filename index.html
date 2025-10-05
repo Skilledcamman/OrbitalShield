@@ -18,6 +18,9 @@
 
   <!-- External CSS -->
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- Defense System Module -->
+  <script src="defense-system.js"></script>
 </head>
 <body>
   <!-- Loading Screen -->
@@ -84,40 +87,151 @@
       </div>
 
       <div id="controlsContent">
+        <!-- Real-time Updates Control -->
+        <div id="realTimeControls" style="margin-top: 12px;">
+          <label>
+            <input type="checkbox" id="realTimeToggle" style="margin-right: 8px;" />
+            Real-time Updates (5min)
+          </label>
+        </div>
+
         <!-- Asteroid Count Control -->
         <div id="countControls" style="margin-top: 12px;">
           <label for="asteroidCount">No. of Asteroids to Plot</label><br>
           <input type="number" id="asteroidCount" min="1" max="200" step="1" value="20" style="width: 80px;" />
+          <button id="refreshBtn" style="margin-left: 8px; padding: 4px 8px;">🔄 Refresh</button>
         </div>
 
-        <!-- Asteroid Size Control -->
+        <!-- Impact Location Simulation -->
+        <div id="impactLocationControls" style="margin-top: 12px;">
+          <div class="dropdown-header" onclick="toggleDropdown('impactLocationContent')" style="cursor: pointer; background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; border-radius: 6px; padding: 8px; display: flex; align-items: center; justify-content: space-between;">
+            <label style="color: #ffcc00; font-weight: bold; margin: 0;">🎯 Impact Location Simulator</label>
+            <span id="impactLocationArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(-90deg); transition: transform 0.3s;">▶</span>
+          </div>
+          <div id="impactLocationContent" style="display: none; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; border: 1px solid #333;">
+            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+              <input type="number" id="impactLat" placeholder="Latitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
+              <input type="number" id="impactLng" placeholder="Longitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
+              <button id="simulateImpact" style="padding: 4px 8px; background: rgba(255, 68, 68, 0.2); border: 1px solid #ff4444; color: #ff4444; border-radius: 3px;">Simulate</button>
+            </div>
+            <button id="showImpactMap" style="font-size: 11px; padding: 6px 12px; background: rgba(255, 204, 0, 0.2); border: 1px solid #ffcc00; color: #ffcc00; border-radius: 3px; width: 100%;">🗺️ View Impact Map</button>
+          </div>
+        </div>
+
+        <!-- Asteroid Visibility Control -->
         <div id="sizeControls" style="margin-top: 12px; flex-direction: column; align-items: stretch;">
-          <label for="sizeRatio">Asteroid Size</label> 
+          <label for="sizeRatio">Asteroid Visibility</label> 
           <div class="slider-row">
             <input type="range" id="sizeRatio" min="1" max="25" step="1" value="1" />
             <span id="sizeRatioValue">1x</span>
           </div>
         </div>
 
-        <!-- Impactor-2025 simulation controls -->
+        <!-- Enhanced Deflection Strategy Panel -->
         <div id="simulationControls">
-          <div style="display:flex; gap:12px; align-items:center;">
-            <div style="min-width:260px">
-              <label for="deltaV">ΔV (mm/s)</label><br>
-              <input type="range" id="deltaV" min="0" max="100" step="0.5" value="0" />
-              <div class="slider-row">
-                <span id="deltaVValue">0.0 mm/s</span>
+          <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border: 1px solid #444;">
+            <div class="dropdown-header" onclick="toggleDropdown('defenseContent')" style="cursor: pointer; background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; border-radius: 6px; padding: 8px; display: flex; align-items: center; justify-content: space-between; margin: -12px -12px 12px -12px;">
+              <h3 style="margin: 0; color: #ffcc00; font-size: 14px;">🛡️ Planetary Defense Mission</h3>
+              <span id="defenseArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(0deg); transition: transform 0.3s;">▼</span>
+            </div>
+            
+            <div id="defenseContent" style="display: block;">
+              <!-- Auto Optimize Toggle -->
+              <div style="margin: 6px 0 12px 0; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                <label style="display:flex; align-items:center; gap:8px; color:#ccc;">
+                  <input type="checkbox" id="autoOptimize" checked style="margin-right: 4px;" />
+                  Auto-Optimize (recommended)
+                </label>
+                <span style="font-size:10px; color:#888;">Toggle off to manually adjust parameters</span>
+              </div>
+              
+              <!-- Mission Method Selection -->
+              <div style="margin-bottom: 12px;">
+                <label for="mitigationMethod" style="color: #ccc; font-weight: bold;">Deflection Method:</label>
+                <select id="mitigationMethod" style="width: 100%; padding: 6px; margin-top: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 4px; color: #fff;">
+                  <option value="kinetic">🎯 Kinetic Impactor (DART-style)</option>
+                  <option value="gravity">🌌 Gravity Tractor</option>
+                  <option value="nuclear">💥 Nuclear Deflection</option>
+                  <option value="laser">⚡ Laser Ablation</option>
+                  <option value="ion">🔋 Ion Beam Shepherd</option>
+                  <option value="mass_driver">🚀 Mass Driver</option>
+                </select>
+              </div>
+
+              <!-- Mission Timeline -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
                 <div>
-                  <label for="yearsOut">Years to Impact</label><br>
-                  <input type="number" id="yearsOut" min="1" max="30" step="1" value="5" />
+                  <label for="yearsOut" style="color: #ccc; font-size: 12px;">Years to Impact:</label>
+                  <input type="number" id="yearsOut" min="0.5" max="50" step="0.5" value="5" style="width: 100%; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
+                </div>
+                <div>
+                  <label for="missionDuration" style="color: #ccc; font-size: 12px;">Mission Duration (years):</label>
+                  <input type="number" id="missionDuration" min="0.1" max="10" step="0.1" value="1.0" style="width: 100%; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
                 </div>
               </div>
-              <div id="mitigationResult">Resulting Miss Distance: N/A</div>
+
+              <!-- Delta-V Control -->
+              <div style="margin-bottom: 12px;">
+                <label for="deltaV" style="color: #ccc; font-weight: bold;">ΔV Applied:</label>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                  <input type="range" id="deltaV" min="0" max="500" step="0.1" value="0" style="flex: 1;" />
+                  <span id="deltaVValue" style="color: #ffcc00; font-weight: bold; min-width: 80px;">0.0 mm/s</span>
+                </div>
+                <div style="font-size: 11px; color: #888; margin-top: 2px;">
+                  Typical range: 0.1-100 mm/s (depends on method and timing)
+                </div>
+              </div>
+
+              <!-- Spacecraft Mass Parameters -->
+              <div style="margin-bottom: 12px;">
+                <div>
+                  <label for="spacecraftMass" style="color: #ccc; font-size: 12px;">Spacecraft Mass (kg):</label>
+                  <input type="number" id="spacecraftMass" min="500" max="50000" step="50" value="" placeholder="Auto-Optimized" style="width: 100%; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" title="Leave empty for method-optimal mass" />
+                </div>
+              </div>
+              
+              <div style="font-size: 10px; color: #888; margin-bottom: 12px; text-align: center; padding: 4px; background: rgba(0,0,0,0.3); border-radius: 3px;">
+                💡 Auto-optimization adjusts parameters based on asteroid characteristics<br>
+                Method defaults: Kinetic(850kg), Gravity(2000kg), Nuclear(5000kg), Others(1400-4500kg)
+              </div>
+
+              <!-- Mission Results Display -->
+              <div id="deflectionResults" style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 6px; border-left: 4px solid #ffcc00; margin-bottom: 8px;">
+                <div style="color: #ffcc00; font-weight: bold; margin-bottom: 8px; font-size: 13px;">📊 Mission Analysis</div>
+                <div id="mitigationResult" style="color: #44ff88; font-weight: bold; margin-bottom: 6px; font-size: 12px;">
+                  Miss Distance: Select parameters above
+                </div>
+                <div id="mitigationEfficiency" style="font-size: 11px; color: #aaa; margin-bottom: 6px;">
+                  Method details will appear here
+                </div>
+                <div id="missionFeasibility" style="font-size: 11px; color: #ccc; margin-bottom: 6px;">
+                  Mission feasibility: Not calculated
+                </div>
+                <div id="costEstimate" style="font-size: 11px; color: #ffcc00;">
+                  Estimated cost: Calculating...
+                </div>
+              </div>
+
+              <!-- Advanced Physics Display -->
+              <div id="physicsDetails" style="padding: 8px; background: rgba(0,0,0,0.3); border-radius: 4px; border: 1px solid #333; margin-bottom: 8px;">
+                <div style="font-size: 11px; color: #aaa; margin-bottom: 6px;">� Physics Analysis</div>
+                <div id="orbitalMechanics" style="font-size: 10px; color: #bbb; line-height: 1.4;">
+                  • Orbital velocity change: 0 m/s<br>
+                  • Deflection angle: 0.000°<br>
+                  • Energy efficiency: 0%<br>
+                  • Success probability: 0%
+                </div>
+              </div>
             </div>
           </div>
           
-          <!-- Combined Information Panel - now inside simulation controls -->
-          <div id="infoPanel">
+          <!-- Enhanced Information Panel -->
+          <div id="infoPanel" style="margin-top: 12px;">
+            <div style="margin-bottom: 8px;">
+              <button id="educationalMode" style="padding: 4px 8px; font-size: 12px;">📚 Educational Mode</button>
+              <button id="gamificationMode" style="padding: 4px 8px; font-size: 12px; margin-left: 4px;">🎮 Defend Earth</button>
+              <button id="scenarioMode" style="padding: 4px 8px; font-size: 12px; margin-left: 4px;">🎭 Scenarios</button>
+            </div>
             Select an asteroid (click name) to populate report. Open browser console to see fetched data.
           </div>
         </div>
@@ -126,6 +240,8 @@
   </div>
 
   <!-- External JS -->
+  <script type="module" src="impact-map.js"></script>
+  <script type="module" src="scenarios.js"></script>
   <script type="module" src="main.js"></script>
 
   <!-- Asteroid search bar logic is now handled in main.js after asteroidCache is defined. -->
