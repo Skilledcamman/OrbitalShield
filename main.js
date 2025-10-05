@@ -79,11 +79,6 @@ const API_BASE = 'https://api.nasa.gov/neo/rest/v1/neo/browse';
 const USGS_EARTHQUAKE_API = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson';
 const USGS_ELEVATION_API = 'https://nationalmap.gov/epqs/pqs.php';
 
-// Real-time updates and enhanced features
-const REAL_TIME_UPDATE_INTERVAL = 300000; // 5 minutes
-let realTimeUpdateEnabled = false;
-let updateTimer = null;
-
 // USGS Data Cache
 let usgsDataCache = {
   earthquakes: [],
@@ -270,59 +265,7 @@ function calculateSeismicEffects(energyMt, impactLat, impactLng) {
   };
 }
 
-// Real-time update functions
-function enableRealTimeUpdates() {
-  if (realTimeUpdateEnabled) return;
-  
-  realTimeUpdateEnabled = true;
-  console.log('Enabling real-time asteroid updates...');
-  
-  updateTimer = setInterval(async () => {
-    try {
-      console.log('Performing real-time asteroid update...');
-      const countInput = document.getElementById('asteroidCount');
-      const maxCount = countInput ? Math.min(200, parseInt(countInput.value) || 20) : 20;
-      
-      // Force refresh cache
-      asteroidCache = { data: [], timestamp: 0, maxAge: asteroidCache.maxAge };
-      
-      const key = 'vtR582RLfHiFz1EPNfMLdXr3auzMoaSMlj47tSTb';
-      const asteroids = await fetchAsteroids(key, maxCount);
-      
-      if (asteroids.length > 0) {
-        const container = document.getElementById('canvas');
-        container.innerHTML = '';
-        initThreeScene(asteroids, asteroidCache.data.length);
-        
-        const infoPanel = document.getElementById('infoPanel');
-        if (infoPanel && !infoPanel.innerHTML.includes('Real-time')) {
-          infoPanel.innerHTML = `
-            🔴 <strong>Real-time updates enabled</strong><br>
-            ${infoPanel.innerHTML}
-          `;
-        }
-      }
-    } catch (error) {
-      console.error('Real-time update failed:', error);
-    }
-  }, REAL_TIME_UPDATE_INTERVAL);
-}
 
-function disableRealTimeUpdates() {
-  if (!realTimeUpdateEnabled) return;
-  
-  realTimeUpdateEnabled = false;
-  if (updateTimer) {
-    clearInterval(updateTimer);
-    updateTimer = null;
-  }
-  
-  console.log('Real-time updates disabled');
-  const infoPanel = document.getElementById('infoPanel');
-  if (infoPanel) {
-    infoPanel.innerHTML = infoPanel.innerHTML.replace(/🔴 <strong>Real-time updates enabled<\/strong><br>/, '');
-  }
-}
 
 // Cache for asteroid data to avoid re-fetching
 let asteroidCache = {
@@ -2349,22 +2292,6 @@ function initThreeScene(asteroids, totalAvailable = null) {
         if (!isEffectiveDeflection) {
           warnings.push(`⚠️ Deflection insufficient - increase spacecraft mass or ΔV for safety margin`);
         }
-        
-        // Display warnings if any
-        if (warnings.length > 0) {
-          const warningEl = document.getElementById('deflectionWarnings') || 
-                           (() => {
-                             const el = document.createElement('div');
-                             el.id = 'deflectionWarnings';
-                             el.style.cssText = 'margin-top: 6px; padding: 4px; background: rgba(255,136,68,0.2); border-left: 3px solid #ff8844; font-size: 10px; line-height: 1.3;';
-                             document.getElementById('deflectionResults').appendChild(el);
-                             return el;
-                           })();
-          warningEl.innerHTML = warnings.join('<br>');
-        } else {
-          const warningEl = document.getElementById('deflectionWarnings');
-          if (warningEl) warningEl.remove();
-        }
       }
       
       // Function to update placeholder value to show current spacecraft mass default
@@ -2793,17 +2720,7 @@ window.addEventListener('load', () => {
     autoFetchAsteroids();
   }, 100);
 
-  // Real-time updates toggle
-  const realTimeToggle = document.getElementById('realTimeToggle');
-  if (realTimeToggle) {
-    realTimeToggle.addEventListener('change', function() {
-      if (this.checked) {
-        enableRealTimeUpdates();
-      } else {
-        disableRealTimeUpdates();
-      }
-    });
-  }
+
 
   // Refresh button
   const refreshBtn = document.getElementById('refreshBtn');
