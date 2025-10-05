@@ -5,16 +5,16 @@ import { CSS2DRenderer, CSS2DObject } from 'CSS2DRenderer';
 // Initialize dropdown functionality
 function initializeDropdownPanels() {
   // Initialize all dropdown panels
-  const dropdowns = ['impactContent', 'defenseContent'];
+  const dropdowns = ['impactLocationContent', 'defenseContent'];
   
   dropdowns.forEach(id => {
     const content = document.getElementById(id);
     const arrow = document.getElementById(id.replace('Content', 'Arrow'));
     
     if (content && arrow) {
-      // Set initial state
-      content.style.display = 'block';
-      arrow.style.transform = 'rotate(0deg)';
+      // Set initial state to collapsed
+      content.style.display = 'none';
+      arrow.style.transform = 'rotate(-90deg)';
     }
   });
 }
@@ -45,7 +45,7 @@ window.toggleDropdown = toggleDropdown;
 // Update impact display
 function updateImpactDisplay() {
   const lat = parseFloat(document.getElementById('impactLat').value);
-  const lon = parseFloat(document.getElementById('impactLon').value);
+  const lon = parseFloat(document.getElementById('impactLng').value);
   
   if (!isNaN(lat) && !isNaN(lon)) {
     const impactDisplay = document.getElementById('impactDisplay');
@@ -56,6 +56,21 @@ function updateImpactDisplay() {
         Longitude: ${lon.toFixed(3)}°<br>
         <small style="color: #888;">Visual markers updated on Earth</small>
       `;
+    }
+    
+    // Update impact map statistics if map is open and asteroid is selected
+    updateImpactMapStats(lat, lon);
+  }
+}
+
+// Update impact map statistics when coordinates change
+function updateImpactMapStats(lat, lng) {
+  // Check if impact map is open and there's an asteroid selected
+  if (window.impactZoneMap && window.currentSelectedAsteroid) {
+    const impactMap = document.getElementById('impactMap');
+    if (impactMap && impactMap.style.display !== 'none') {
+      // Re-calculate and update the impact statistics with new coordinates
+      window.impactZoneMap.setImpactPoint(lat, lng, window.currentSelectedAsteroid);
     }
   }
 }
@@ -75,6 +90,9 @@ let usgsDataCache = {
   timestamp: 0,
   maxAge: 30 * 60 * 1000 // 30 minutes cache
 };
+
+// Global variable to track current selected asteroid for impact map updates
+window.currentSelectedAsteroid = null;
 
 // Loading progress functions
 function updateLoadingProgress(percent, message) {
@@ -1804,6 +1822,10 @@ function initThreeScene(asteroids, totalAvailable = null) {
         console.warn('[showMetaAndReport] Missing meta');
         return;
       }
+      
+      // Store current asteroid data for impact map updates
+      window.currentSelectedAsteroid = meta;
+      
       const avgDiamKm = Number.isFinite(meta.avgDiamKm) ? meta.avgDiamKm : parseFloat(meta.avgDiamKm);
       if (!Number.isFinite(avgDiamKm)) {
         console.warn('[showMetaAndReport] Invalid avgDiamKm in meta:', meta);
@@ -2700,7 +2722,7 @@ window.addEventListener('load', () => {
   
   // Add event listeners for manual input changes
   const latInput = document.getElementById('impactLat');
-  const lonInput = document.getElementById('impactLon');
+  const lonInput = document.getElementById('impactLng');
   
   if (latInput && lonInput) {
     latInput.addEventListener('input', updateImpactDisplay);

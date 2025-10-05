@@ -51,9 +51,9 @@ class ImpactZoneMap {
         <div id="impactStats" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); border-radius: 6px; color: white; font-size: 12px; min-width: 200px;">
           <div class="dropdown-header" onclick="toggleImpactStats()" style="cursor: pointer; padding: 10px; border-bottom: 1px solid #444; display: flex; align-items: center; justify-content: space-between;">
             <span style="color: #ffcc00; font-weight: bold;">📊 Impact Statistics</span>
-            <span id="impactStatsArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(0deg); transition: transform 0.3s;">▼</span>
+            <span id="impactStatsArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(-90deg); transition: transform 0.3s;">▼</span>
           </div>
-          <div id="statsContent" style="display: block; padding: 10px;">Select impact location</div>
+          <div id="statsContent" style="display: none; padding: 10px;">Select impact location</div>
         </div>
       </div>
     `;
@@ -460,24 +460,89 @@ class ImpactZoneMap {
   }
 
   estimatePopulationAtRisk(lat, lng, radiusKm) {
-    // Very simplified population estimation
+    // Comprehensive major cities database for risk assessment
     const majorCities = [
-      { name: 'New York', lat: 40.7, lng: -74.0, pop: 8500000 },
-      { name: 'Los Angeles', lat: 34.1, lng: -118.2, pop: 4000000 },
-      { name: 'London', lat: 51.5, lng: -0.1, pop: 9000000 },
-      { name: 'Tokyo', lat: 35.7, lng: 139.7, pop: 14000000 },
-      { name: 'Mumbai', lat: 19.1, lng: 72.9, pop: 12500000 },
-      { name: 'São Paulo', lat: -23.6, lng: -46.6, pop: 12300000 }
+      // Asia
+      { name: 'Tokyo', lat: 35.7, lng: 139.7, pop: 37400000 }, // Greater Tokyo Area
+      { name: 'Delhi', lat: 28.6, lng: 77.2, pop: 32900000 },
+      { name: 'Shanghai', lat: 31.2, lng: 121.5, pop: 28500000 },
+      { name: 'Dhaka', lat: 23.8, lng: 90.4, pop: 22000000 },
+      { name: 'São Paulo', lat: -23.6, lng: -46.6, pop: 22400000 },
+      { name: 'Cairo', lat: 30.0, lng: 31.2, pop: 21300000 },
+      { name: 'Mexico City', lat: 19.4, lng: -99.1, pop: 21800000 },
+      { name: 'Beijing', lat: 39.9, lng: 116.4, pop: 21500000 },
+      { name: 'Mumbai', lat: 19.1, lng: 72.9, pop: 20400000 },
+      { name: 'Osaka', lat: 34.7, lng: 135.5, pop: 19000000 },
+      { name: 'Karachi', lat: 24.9, lng: 67.1, pop: 16000000 },
+      { name: 'Istanbul', lat: 41.0, lng: 28.9, pop: 15500000 },
+      { name: 'Chongqing', lat: 29.6, lng: 106.5, pop: 15400000 },
+      { name: 'Lagos', lat: 6.5, lng: 3.4, pop: 15300000 },
+      { name: 'Manila', lat: 14.6, lng: 121.0, pop: 14000000 },
+      { name: 'Guangzhou', lat: 23.1, lng: 113.3, pop: 13500000 },
+      { name: 'Rio de Janeiro', lat: -22.9, lng: -43.2, pop: 13300000 },
+      { name: 'Shenzhen', lat: 22.5, lng: 114.1, pop: 12900000 },
+      { name: 'Jakarta', lat: -6.2, lng: 106.8, pop: 10800000 },
+      { name: 'Bangalore', lat: 12.9, lng: 77.6, pop: 13200000 },
+      
+      // Europe
+      { name: 'London', lat: 51.5, lng: -0.1, pop: 9500000 },
+      { name: 'Paris', lat: 48.9, lng: 2.3, pop: 11000000 },
+      { name: 'Moscow', lat: 55.8, lng: 37.6, pop: 12500000 },
+      { name: 'Madrid', lat: 40.4, lng: -3.7, pop: 6700000 },
+      { name: 'Barcelona', lat: 41.4, lng: 2.2, pop: 5600000 },
+      { name: 'Berlin', lat: 52.5, lng: 13.4, pop: 3700000 },
+      { name: 'Rome', lat: 41.9, lng: 12.5, pop: 4300000 },
+      { name: 'Milan', lat: 45.5, lng: 9.2, pop: 3200000 },
+      
+      // North America
+      { name: 'New York', lat: 40.7, lng: -74.0, pop: 18800000 }, // Greater NYC
+      { name: 'Los Angeles', lat: 34.1, lng: -118.2, pop: 13200000 },
+      { name: 'Chicago', lat: 41.9, lng: -87.6, pop: 9500000 },
+      { name: 'Dallas', lat: 32.8, lng: -96.8, pop: 7600000 },
+      { name: 'Houston', lat: 29.8, lng: -95.4, pop: 7100000 },
+      { name: 'Toronto', lat: 43.7, lng: -79.4, pop: 6200000 },
+      { name: 'Washington DC', lat: 38.9, lng: -77.0, pop: 6300000 },
+      { name: 'Philadelphia', lat: 39.9, lng: -75.2, pop: 6100000 },
+      { name: 'Miami', lat: 25.8, lng: -80.2, pop: 6200000 },
+      
+      // South America
+      { name: 'Buenos Aires', lat: -34.6, lng: -58.4, pop: 15200000 },
+      { name: 'Lima', lat: -12.0, lng: -77.0, pop: 10900000 },
+      { name: 'Bogotá', lat: 4.7, lng: -74.1, pop: 11000000 },
+      
+      // Africa
+      { name: 'Kinshasa', lat: -4.3, lng: 15.3, pop: 15000000 },
+      { name: 'Johannesburg', lat: -26.2, lng: 28.0, pop: 10000000 },
+      { name: 'Nairobi', lat: -1.3, lng: 36.8, pop: 4400000 },
+      
+      // Oceania
+      { name: 'Sydney', lat: -33.9, lng: 151.2, pop: 5300000 },
+      { name: 'Melbourne', lat: -37.8, lng: 144.9, pop: 5100000 }
     ];
 
     let totalAtRisk = 0;
+    let citiesAffected = [];
+    
     majorCities.forEach(city => {
       const distance = this.calculateDistance(lat, lng, city.lat, city.lng);
       if (distance <= radiusKm) {
+        // Calculate impact factor based on distance from impact center
         const impactFactor = Math.max(0.1, 1 - (distance / radiusKm));
-        totalAtRisk += Math.round(city.pop * impactFactor);
+        const cityRisk = Math.round(city.pop * impactFactor);
+        totalAtRisk += cityRisk;
+        
+        citiesAffected.push({
+          name: city.name,
+          distance: Math.round(distance),
+          population: city.pop,
+          atRisk: cityRisk,
+          impactFactor: impactFactor
+        });
       }
     });
+
+    // Store affected cities for detailed reporting
+    this.lastAffectedCities = citiesAffected.sort((a, b) => b.atRisk - a.atRisk);
 
     return totalAtRisk;
   }
@@ -496,6 +561,28 @@ class ImpactZoneMap {
   updateImpactStats(stats) {
     const statsContent = document.getElementById('statsContent');
     if (statsContent) {
+      // Build affected cities display
+      let citiesDisplay = '';
+      if (this.lastAffectedCities && this.lastAffectedCities.length > 0) {
+        const topCities = this.lastAffectedCities.slice(0, 5); // Show top 5 most affected
+        citiesDisplay = `
+          <hr style="margin: 8px 0; border: none; border-top: 1px solid #444;">
+          <div style="color: #ffaa44; font-weight: bold; margin-bottom: 4px;">Major Cities Affected:</div>
+          ${topCities.map(city => `
+            <div style="font-size: 11px; margin: 2px 0;">
+              <strong>${city.name}</strong>: ${city.atRisk.toLocaleString()} at risk
+              <div style="color: #888; font-size: 10px;">
+                ${city.distance}km away, ${(city.impactFactor * 100).toFixed(0)}% impact
+              </div>
+            </div>
+          `).join('')}
+          ${this.lastAffectedCities.length > 5 ? 
+            `<div style="font-size: 10px; color: #888; margin-top: 4px;">
+              +${this.lastAffectedCities.length - 5} more cities affected
+            </div>` : ''}
+        `;
+      }
+
       statsContent.innerHTML = `
         <div><strong>Location:</strong> ${stats.location}</div>
         <div><strong>Asteroid:</strong> ${stats.diameter} km diameter</div>
@@ -506,7 +593,8 @@ class ImpactZoneMap {
         <div><strong>Severe Damage:</strong> ${stats.damageRadius} km radius</div>
         <div><strong>Strong Shaking:</strong> ${stats.shakingRadius} km radius</div>
         <hr style="margin: 8px 0; border: none; border-top: 1px solid #444;">
-        <div style="color: #ff6b6b;"><strong>Population at Risk:</strong> ${stats.populationAtRisk.toLocaleString()}</div>
+        <div style="color: #ff6b6b;"><strong>Total Population at Risk:</strong> ${stats.populationAtRisk.toLocaleString()}</div>
+        ${citiesDisplay}
       `;
     }
   }

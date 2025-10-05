@@ -106,7 +106,7 @@
         <div id="impactLocationControls" style="margin-top: 12px;">
           <div class="dropdown-header" onclick="toggleDropdown('impactLocationContent')" style="cursor: pointer; background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; border-radius: 6px; padding: 8px; display: flex; align-items: center; justify-content: space-between;">
             <label style="color: #ffcc00; font-weight: bold; margin: 0;">🎯 Impact Location Simulator</label>
-            <span id="impactLocationArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(-90deg); transition: transform 0.3s;">▶</span>
+            <span id="impactLocationArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(-90deg); transition: transform 0.3s;">▼</span>
           </div>
           <div id="impactLocationContent" style="display: none; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; border: 1px solid #333;">
             <div style="display: flex; gap: 8px; margin-bottom: 8px;">
@@ -149,10 +149,10 @@
           <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border: 1px solid #444;">
             <div class="dropdown-header" onclick="toggleDropdown('defenseContent')" style="cursor: pointer; background: rgba(255, 204, 0, 0.1); border: 1px solid #ffcc00; border-radius: 6px; padding: 8px; display: flex; align-items: center; justify-content: space-between; margin: -12px -12px 12px -12px;">
               <h3 style="margin: 0; color: #ffcc00; font-size: 14px;">🛡️ Planetary Defense Mission</h3>
-              <span id="defenseArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(0deg); transition: transform 0.3s;">▼</span>
+              <span id="defenseArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(-90deg); transition: transform 0.3s;">▼</span>
             </div>
             
-            <div id="defenseContent" style="display: block;">
+            <div id="defenseContent" style="display: none;">
               <!-- Auto Optimize Toggle -->
               <div style="margin: 6px 0 12px 0; display:flex; align-items:center; justify-content:space-between; gap:8px;">
                 <label style="display:flex; align-items:center; gap:8px; color:#ccc;">
