@@ -109,25 +109,243 @@
             <span id="impactLocationArrow" style="color: #ffcc00; font-weight: bold; transform: rotate(-90deg); transition: transform 0.3s;">▼</span>
           </div>
           <div id="impactLocationContent" style="display: none; margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px; border: 1px solid #333;">
-            <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-              <input type="number" id="impactLat" placeholder="Latitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
-              <input type="number" id="impactLng" placeholder="Longitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.1); border: 1px solid #555; border-radius: 3px; color: #fff;" />
-              <button id="simulateImpact" style="padding: 4px 8px; background: rgba(255, 68, 68, 0.2); border: 1px solid #ff4444; color: #ff4444; border-radius: 3px;">Simulate</button>
+            <!-- City Selection Dropdown -->
+            <div style="margin-bottom: 8px;">
+              <label style="color: #ccc; font-size: 12px; margin-bottom: 4px; display: block;">🌍 Select Target City:</label>
+              <select id="citySelect" style="width: 100%; padding: 6px; background: #222; border: 1px solid #555; border-radius: 4px; color: #fff; font-size: 11px;">
+                <option value="" style="background: #222; color: #ccc;">-- Choose a city --</option>
+                
+                <!-- NORTH AMERICA -->
+                <optgroup label="� NORTH AMERICA">
+                  <!-- United States -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇺🇸 United States</option>
+                  <option value="40.7128,-74.0060">├── 🏙️ New York City (8.3M)</option>
+                  <option value="34.0522,-118.2437">├── 🌴 Los Angeles (13.2M)</option>
+                  <option value="41.8781,-87.6298">├── 🏢 Chicago (9.5M)</option>
+                  <option value="29.7604,-95.3698">├── 🚀 Houston (7.1M)</option>
+                  <option value="25.7617,-80.1918">├── 🏖️ Miami (6.2M)</option>
+                  <option value="32.7767,-96.7970">├── 🤠 Dallas (7.6M)</option>
+                  <option value="39.9526,-75.1652">├── 🔔 Philadelphia (6.1M)</option>
+                  <option value="38.9072,-77.0369">└── 🏛️ Washington D.C. (6.3M)</option>
+                  
+                  <!-- Canada -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇨🇦 Canada</option>
+                  <option value="43.6532,-79.3832">├── 🍁 Toronto (6.2M)</option>
+                  <option value="49.2827,-123.1207">└── ⛰️ Vancouver (2.6M)</option>
+                  
+                  <!-- Mexico -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇲🇽 Mexico</option>
+                  <option value="19.4326,-99.1332">└── 🌮 Mexico City (21.8M)</option>
+                </optgroup>
+
+                <!-- EUROPE -->
+                <optgroup label="� EUROPE">
+                  <!-- United Kingdom -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇬🇧 United Kingdom</option>
+                  <option value="51.5074,-0.1278">└── 🏰 London (9.5M)</option>
+                  
+                  <!-- France -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇫🇷 France</option>
+                  <option value="48.8566,2.3522">└── 🗼 Paris (11.0M)</option>
+                  
+                  <!-- Germany -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇩🇪 Germany</option>
+                  <option value="52.5200,13.4050">├── 🧱 Berlin (3.7M)</option>
+                  <option value="53.5511,9.9937">├── ⚓ Hamburg (1.9M)</option>
+                  <option value="48.1351,11.5820">├── 🍺 Munich (2.6M)</option>
+                  <option value="50.1109,8.6821">└── 🏢 Frankfurt (2.3M)</option>
+                  
+                  <!-- Spain -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇪🇸 Spain</option>
+                  <option value="40.4168,-3.7038">├── 💃 Madrid (6.7M)</option>
+                  <option value="41.3851,2.1734">└── 🏖️ Barcelona (5.6M)</option>
+                  
+                  <!-- Italy -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇮🇹 Italy</option>
+                  <option value="41.9028,12.4964">└── 🏛️ Rome (4.3M)</option>
+                  
+                  <!-- Russia -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇷🇺 Russia</option>
+                  <option value="55.7558,37.6173">├── 🏛️ Moscow (12.5M)</option>
+                  <option value="59.9311,30.3609">└── ❄️ St. Petersburg (5.4M)</option>
+                  
+                  <!-- Turkey -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇹🇷 Turkey</option>
+                  <option value="41.0082,28.9784">└── 🕌 Istanbul (15.5M)</option>
+                  
+                  <!-- Nordic Countries -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🌨️ Nordic Countries</option>
+                  <option value="55.6761,12.5683">├── 🧜‍♀️ Copenhagen, Denmark (2.1M)</option>
+                  <option value="59.3293,18.0686">├── 🏰 Stockholm, Sweden (2.4M)</option>
+                  <option value="60.1695,24.9354">├── ❄️ Helsinki, Finland (1.5M)</option>
+                  <option value="59.9139,10.7522">└── 🏔️ Oslo, Norway (1.7M)</option>
+                  
+                  <!-- Other Europe -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇪🇺 Other Europe</option>
+                  <option value="50.0755,14.4378">├── 🏰 Prague, Czech Republic (1.3M)</option>
+                  <option value="47.4979,19.0402">├── 🏰 Budapest, Hungary (1.8M)</option>
+                  <option value="53.3498,-6.2603">├── ☘️ Dublin, Ireland (1.4M)</option>
+                  <option value="38.7223,-9.1393">├── 🏰 Lisbon, Portugal (2.9M)</option>
+                  <option value="46.2044,6.1432">├── �️ Geneva, Switzerland (0.6M)</option>
+                  <option value="47.3769,8.5417">├── 💰 Zurich, Switzerland (1.4M)</option>
+                  <option value="48.2082,16.3738">├── 🎭 Vienna, Austria (1.9M)</option>
+                  <option value="50.8503,4.3517">├── 🍫 Brussels, Belgium (1.2M)</option>
+                  <option value="52.3676,4.9041">└── 🌷 Amsterdam, Netherlands (2.4M)</option>
+                </optgroup>
+
+                <!-- ASIA -->
+                <optgroup label="🌏 ASIA">
+                  <!-- China -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇨🇳 China</option>
+                  <option value="39.9042,116.4074">├── 🏮 Beijing (21.5M)</option>
+                  <option value="31.2304,121.4737">└── 🏙️ Shanghai (24.8M)</option>
+                  
+                  <!-- Japan -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇯🇵 Japan</option>
+                  <option value="35.6762,139.6503">├── 🏯 Tokyo (38.0M)</option>
+                  <option value="35.6804,139.7690">└── 🌸 Osaka (18.9M)</option>
+                  
+                  <!-- India -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇮🇳 India</option>
+                  <option value="28.6139,77.2090">├── 🕌 Delhi (33.0M)</option>
+                  <option value="19.0760,72.8777">├── 🏙️ Mumbai (21.0M)</option>
+                  <option value="12.9716,77.5946">└── 💻 Bangalore (13.2M)</option>
+                  
+                  <!-- South Korea -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇰🇷 South Korea</option>
+                  <option value="37.5665,126.9780">└── 🏙️ Seoul (25.5M)</option>
+                  <option value="35.6804,139.7690">🌸 Osaka, Japan (18.9M)</option>
+                  <option value="1.3521,103.8198">�️ Singapore (5.9M)</option>
+                  <option value="3.1390,101.6869">🏢 Kuala Lumpur, Malaysia (8.6M)</option>
+                  <option value="13.7563,100.5018">🏯 Bangkok, Thailand (10.5M)</option>
+                  <option value="10.8231,106.6297">🏙️ Ho Chi Minh City, Vietnam (9.3M)</option>
+                  <option value="14.5995,120.9842">🏝️ Manila, Philippines (25.7M)</option>
+                                    <option value="-6.2088,106.8456">└── 🏙️ Jakarta, Indonesia (35.0M)</option>
+                  
+                  <!-- Middle East -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🏜️ Middle East</option>
+                  <option value="25.2048,55.2708">├── 🏗️ Dubai, UAE (3.5M)</option>
+                  <option value="24.4539,54.3773">├── 🕌 Abu Dhabi, UAE (1.5M)</option>
+                  <option value="35.6892,51.3890">├── 🏛️ Tehran, Iran (9.5M)</option>
+                  <option value="24.7136,46.6753">├── 🏺 Riyadh, Saudi Arabia (7.7M)</option>
+                  <option value="33.3152,44.3661">├── 🏛️ Baghdad, Iraq (7.5M)</option>
+                  <option value="29.3117,47.4818">├── 🛢️ Kuwait City, Kuwait (4.1M)</option>
+                  <option value="26.2285,50.5860">├── 💰 Manama, Bahrain (0.7M)</option>
+                  <option value="25.3548,51.1839">├── ⚽ Doha, Qatar (2.4M)</option>
+                  <option value="23.4241,53.8478">├── 🏛️ Muscat, Oman (1.6M)</option>
+                  <option value="33.8869,35.5131">├── 🌲 Beirut, Lebanon (2.4M)</option>
+                  <option value="33.5138,36.2765">├── 🏛️ Damascus, Syria (2.1M)</option>
+                  <option value="31.7683,35.2137">├── 🕊️ Jerusalem, Israel/Palestine (1.0M)</option>
+                  <option value="32.0853,34.7818">├── 🏖️ Tel Aviv, Israel (4.3M)</option>
+                  <option value="31.9686,35.9023">└── 🏛️ Amman, Jordan (4.0M)</option>
+                </optgroup>
+
+                <!-- AFRICA -->
+                <optgroup label="🌍 AFRICA">
+                  <!-- Egypt -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇪🇬 Egypt</option>
+                  <option value="30.0444,31.2357">├── 🏺 Cairo (21.3M)</option>
+                  <option value="30.0626,31.2497">├── 🏺 Giza (9.2M)</option>
+                  <option value="31.2001,29.9187">└── 🏛️ Alexandria (5.2M)</option>
+                  
+                  <!-- Nigeria -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇳🇬 Nigeria</option>
+                  <option value="6.5244,3.3792">├── 🏙️ Lagos (15.3M)</option>
+                  <option value="6.5244,3.3792">├── 🏙️ Abuja (3.3M)</option>
+                  <option value="12.9716,77.5946">└── 💻 Kano (4.1M)</option>
+                  
+                  <!-- South Africa -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇿🇦 South Africa</option>
+                  <option value="-26.2041,28.0473">├── 💎 Johannesburg (10.0M)</option>
+                  <option value="-33.9249,18.4241">├── 🏔️ Cape Town (4.6M)</option>
+                  <option value="-29.8587,31.0218">├── 🏖️ Durban (3.7M)</option>
+                  <option value="-25.7479,28.2293">└── 🏛️ Pretoria (2.9M)</option>
+                  
+                  <!-- Other Africa -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🌍 Other Africa</option>
+                  <option value="-1.2921,36.8219">├── 🦁 Nairobi, Kenya (4.4M)</option>
+                  <option value="9.0579,38.7499">├── 🏛️ Addis Ababa, Ethiopia (5.0M)</option>
+                  <option value="-6.7924,39.2083">├── 🌊 Dar es Salaam, Tanzania (6.7M)</option>
+                  <option value="33.5731,-7.5898">├── 🏛️ Casablanca, Morocco (3.8M)</option>
+                  <option value="15.5007,32.5599">├── 🏺 Khartoum, Sudan (6.1M)</option>
+                  <option value="5.6037,-0.1870">├── 🌍 Accra, Ghana (4.3M)</option>
+                  <option value="0.3476,32.5825">├── 🦍 Kampala, Uganda (3.3M)</option>
+                  <option value="-1.9706,30.1044">├── 🦍 Kigali, Rwanda (1.3M)</option>
+                  <option value="36.8065,10.1815">├── 🏛️ Tunis, Tunisia (2.3M)</option>
+                  <option value="36.7538,3.0588">├── 🏛️ Algiers, Algeria (7.8M)</option>
+                  <option value="-15.3875,28.3228">├── 💎 Lusaka, Zambia (3.1M)</option>
+                  <option value="-17.8292,31.0522">└── 🏛️ Harare, Zimbabwe (2.1M)</option>
+                </optgroup>
+
+                <!-- SOUTH AMERICA -->
+                <optgroup label="� SOUTH AMERICA">
+                  <option value="30.0444,31.2357">🏺 Cairo, Egypt (21.3M)</option>
+                  <option value="24.7136,46.6753">�️ Riyadh, Saudi Arabia (7.7M)</option>
+                  <option value="33.3152,44.3661">🏛️ Baghdad, Iraq (7.5M)</option>
+                  <option value="35.6892,51.3890">🏛️ Tehran, Iran (9.5M)</option>
+                  <option value="-1.2921,36.8219">🦁 Nairobi, Kenya (4.4M)</option>
+                  <option value="6.5244,3.3792">🏙️ Lagos, Nigeria (15.3M)</option>
+                  <option value="-26.2041,28.0473">💎 Johannesburg, South Africa (10.0M)</option>
+                  <option value="-33.9249,18.4241">🏔️ Cape Town, South Africa (4.6M)</option>
+                  <option value="9.0579,38.7499">🏛️ Addis Ababa, Ethiopia (5.0M)</option>
+                  <option value="-6.7924,39.2083">�️ Dar es Salaam, Tanzania (6.7M)</option>
+                  <option value="33.5731,-7.5898">🏛️ Casablanca, Morocco (3.8M)</option>
+                </optgroup>
+
+                <!-- South America -->
+                <optgroup label="🌎 South America">
+                  <!-- Brazil -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇧🇷 Brazil</option>
+                  <option value="-23.5505,-46.6333">├── 🏙️ São Paulo (22.4M)</option>
+                  <option value="-22.9068,-43.1729">├── 🏖️ Rio de Janeiro (13.3M)</option>
+                  <option value="-19.9167,-43.9345">└── 💎 Belo Horizonte (6.1M)</option>
+                  
+                  <!-- Argentina -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇦🇷 Argentina</option>
+                  <option value="-34.6118,-58.3960">└── 💃 Buenos Aires (15.2M)</option>
+                  
+                  <!-- Colombia -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇨🇴 Colombia</option>
+                  <option value="4.7110,-74.0721">├── 🏛️ Bogotá (11.0M)</option>
+                  <option value="6.2442,-75.5812">└── 🌺 Medellín (4.0M)</option>
+                  
+                  <!-- Other South America -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🌎 Other South America</option>
+                  <option value="-12.0464,-77.0428">├── 🏛️ Lima, Peru (10.9M)</option>
+                  <option value="-33.4489,-70.6693">├── ⛰️ Santiago, Chile (7.2M)</option>
+                  <option value="10.4806,-66.9036">├── 🏛️ Caracas, Venezuela (2.9M)</option>
+                  <option value="-0.1807,-78.4678">├── 🌋 Quito, Ecuador (2.8M)</option>
+                  <option value="-25.2637,-57.5759">├── 🌿 Asunción, Paraguay (3.2M)</option>
+                  <option value="-34.9011,-56.1645">├── 🏖️ Montevideo, Uruguay (1.7M)</option>
+                  <option value="-16.2902,-63.5887">├── 🏔️ Santa Cruz, Bolivia (1.4M)</option>
+                  <option value="-17.7834,-63.1821">└── 🏛️ La Paz, Bolivia (2.3M)</option>
+                </optgroup>
+
+                <!-- OCEANIA -->
+                <optgroup label="🏝️ OCEANIA">
+                  <!-- Australia -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇦🇺 Australia</option>
+                  <option value="-33.8688,151.2093">├── 🏖️ Sydney (5.3M)</option>
+                  <option value="-37.8136,144.9631">├── ☕ Melbourne (5.1M)</option>
+                  <option value="-27.4698,153.0251">├── ☀️ Brisbane (2.6M)</option>
+                  <option value="-31.9505,115.8605">└── 🌊 Perth (2.1M)</option>
+                  
+                  <!-- New Zealand -->
+                  <option value="" disabled style="background: #333; color: #ffcc00; font-weight: bold;">🇳🇿 New Zealand</option>
+                  <option value="-36.8485,174.7633">├── 🐑 Auckland (1.7M)</option>
+                  <option value="-41.2865,174.7762">├── 🌿 Wellington (0.4M)</option>
+                  <option value="-43.5321,172.6362">└── 🏔️ Christchurch (0.4M)</option>
+                </optgroup>
+              </select>
             </div>
             
-            <!-- Popular Places -->
+            <!-- Manual Coordinates (Optional) -->
             <div style="margin-bottom: 8px;">
-              <label style="color: #ccc; font-size: 11px; margin-bottom: 4px; display: block;">Popular Impact Locations:</label>
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px;">
-                <button class="location-preset" data-lat="40.7128" data-lng="-74.0060" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 99, 71, 0.2); border: 1px solid #ff6347; color: #ff6347; border-radius: 3px; cursor: pointer;">🏙️ NYC</button>
-                <button class="location-preset" data-lat="34.0522" data-lng="-118.2437" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 215, 0, 0.2); border: 1px solid #ffd700; color: #ffd700; border-radius: 3px; cursor: pointer;">🌴 LA</button>
-                <button class="location-preset" data-lat="35.6762" data-lng="139.6503" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 20, 147, 0.2); border: 1px solid #ff1493; color: #ff1493; border-radius: 3px; cursor: pointer;">🏯 Tokyo</button>
-                <button class="location-preset" data-lat="51.5074" data-lng="-0.1278" style="font-size: 10px; padding: 3px 5px; background: rgba(70, 130, 180, 0.2); border: 1px solid #4682b4; color: #4682b4; border-radius: 3px; cursor: pointer;">🏰 London</button>
-                <button class="location-preset" data-lat="48.8566" data-lng="2.3522" style="font-size: 10px; padding: 3px 5px; background: rgba(138, 43, 226, 0.2); border: 1px solid #8a2be2; color: #8a2be2; border-radius: 3px; cursor: pointer;">🗼 Paris</button>
-                <button class="location-preset" data-lat="-33.8688" data-lng="151.2093" style="font-size: 10px; padding: 3px 5px; background: rgba(0, 191, 255, 0.2); border: 1px solid #00bfff; color: #00bfff; border-radius: 3px; cursor: pointer;">🏖️ Sydney</button>
-                <button class="location-preset" data-lat="55.7558" data-lng="37.6173" style="font-size: 10px; padding: 3px 5px; background: rgba(220, 20, 60, 0.2); border: 1px solid #dc143c; color: #dc143c; border-radius: 3px; cursor: pointer;">🏛️ Moscow</button>
-                <button class="location-preset" data-lat="39.9042" data-lng="116.4074" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 140, 0, 0.2); border: 1px solid #ff8c00; color: #ff8c00; border-radius: 3px; cursor: pointer;">🏮 Beijing</button>
-                <button class="location-preset" data-lat="28.6139" data-lng="77.2090" style="font-size: 10px; padding: 3px 5px; background: rgba(255, 165, 0, 0.2); border: 1px solid #ffa500; color: #ffa500; border-radius: 3px; cursor: pointer;">🕌 Delhi</button>
+              <label style="color: #888; font-size: 10px; margin-bottom: 4px; display: block;">Or enter custom coordinates:</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="number" id="impactLat" placeholder="Latitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.05); border: 1px solid #444; border-radius: 3px; color: #aaa; font-size: 10px;" />
+                <input type="number" id="impactLng" placeholder="Longitude" step="0.1" style="width: 80px; padding: 4px; background: rgba(255,255,255,0.05); border: 1px solid #444; border-radius: 3px; color: #aaa; font-size: 10px;" />
+                <button id="simulateImpact" style="padding: 4px 8px; background: rgba(255, 68, 68, 0.2); border: 1px solid #ff4444; color: #ff4444; border-radius: 3px; font-size: 10px;">Simulate</button>
               </div>
             </div>
             

@@ -749,3 +749,98 @@ button:hover {
   text-align: center;
   margin: 0;
 }
+
+/* City Dropdown Styling */
+#citySelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23fff" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 30px;
+}
+
+#citySelect option {
+  background: #222 !important;
+  color: #fff !important;
+  padding: 4px 8px;
+}
+
+#citySelect optgroup {
+  background: #333 !important;
+  color: #ffcc00 !important;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+#citySelect option:hover,
+#citySelect option:focus {
+  background: #444 !important;
+  color: #ffcc00 !important;
+}
+
+#citySelect:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.3);
+}
+
+/* Impact Statistics Scrollbar Styling */
+#statsContent {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #222;
+}
+
+#statsContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+#statsContent::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+#statsContent::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+#statsContent::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+#statsContent::-webkit-scrollbar-thumb:active {
+  background: #777;
+}
+
+/* Ensure the stats content scrolls smoothly */
+#statsContent {
+  scroll-behavior: smooth;
+}
+
+/* Add fade effect at bottom when content is scrollable */
+#impactStats {
+  position: relative;
+}
+
+#impactStats::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  pointer-events: none;
+  border-radius: 0 0 6px 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#impactStats.scrollable::after {
+  opacity: 1;
+}

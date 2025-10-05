@@ -2739,7 +2739,34 @@ window.addEventListener('load', () => {
     });
   }
   
-  // Add location preset buttons functionality
+  // Add city dropdown functionality
+  const citySelect = document.getElementById('citySelect');
+  if (citySelect) {
+    citySelect.addEventListener('change', (e) => {
+      const coordinates = e.target.value;
+      if (coordinates) {
+        const [lat, lng] = coordinates.split(',').map(coord => parseFloat(coord.trim()));
+        
+        if (!isNaN(lat) && !isNaN(lng)) {
+          // Update input fields
+          document.getElementById('impactLat').value = lat;
+          document.getElementById('impactLng').value = lng;
+          
+          // Update display
+          updateImpactDisplay();
+          
+          // Visual feedback
+          const cityName = e.target.options[e.target.selectedIndex].text;
+          console.log(`📍 Selected impact location: ${cityName} (${lat}, ${lng})`);
+          
+          // Optional: Show notification
+          showNotification(`🎯 Impact location set to ${cityName.split(' ')[1]}`);
+        }
+      }
+    });
+  }
+  
+  // Keep location preset buttons functionality for any remaining buttons
   const locationPresets = document.querySelectorAll('.location-preset');
   locationPresets.forEach(button => {
     button.addEventListener('click', (e) => {
@@ -3389,4 +3416,54 @@ function createFallbackDefenseAnalysis(asteroidMass, yearsToImpact) {
                 massInBillions > 10 ? 'medium' : 'small'
     }
   };
+}
+
+// Simple notification function for user feedback
+function showNotification(message, duration = 3000) {
+  // Remove any existing notification
+  const existingNotification = document.getElementById('notification');
+  if (existingNotification) {
+    existingNotification.remove();
+  }
+  
+  // Create notification element
+  const notification = document.createElement('div');
+  notification.id = 'notification';
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffcc00;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: 1px solid #ffcc00;
+    font-size: 14px;
+    z-index: 10000;
+    animation: slideIn 0.3s ease-out;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+  `;
+  
+  // Add slide-in animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Add to page
+  document.body.appendChild(notification);
+  
+  // Auto-remove after duration
+  setTimeout(() => {
+    if (notification && notification.parentNode) {
+      notification.style.animation = 'slideIn 0.3s ease-out reverse';
+      setTimeout(() => notification.remove(), 300);
+    }
+  }, duration);
 }
